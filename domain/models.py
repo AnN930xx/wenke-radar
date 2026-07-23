@@ -11,6 +11,7 @@
                 官方源可为"岗位关闭/更新时间/真实性"背书；聚合发现源只作线索，不 authoritative。
   canonical_job_id  跨源去重预留：同一岗位在多来源出现时指向同一"真实岗位"（暂未启用）。
 """
+import hashlib
 from dataclasses import dataclass, field
 from datetime import datetime
 
@@ -51,3 +52,13 @@ class JobItem:
     @property
     def dedup_key(self) -> str:
         return f"{self.source_id}::{self.job_id}"
+
+    @property
+    def content_fingerprint(self) -> str:
+        """岗位"实质内容"的指纹：标题/地点/类别/JD正文任一变化即变。
+        用于真正的 UPDATED 事件识别（不再只看标题+地点，能捕捉 JD/要求的变化）。
+        不落 JD 全文，只落这个 hash——满足审查"存指纹不必存全文"。"""
+        basis = "\x01".join([
+            self.title or "", self.location or "",
+            self.category or "", (self.description or "").strip()])
+        return hashlib.md5(basis.encode("utf-8")).hexdigest()

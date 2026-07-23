@@ -112,3 +112,40 @@ class TestJobEvents:
     def test_bootstrap_event(self):
         store.save_jobs(mk("新大厂", 6))
         assert {e[2] for e in events()} == {"BOOTSTRAP"}
+
+
+class TestContentFingerprint:
+    def test_fingerprint_stable_and_sensitive(self):
+        base = JobItem(company="A", job_id="1", title="产品经理", location="上海",
+                       category="产品", description="负责用户增长")
+        same = JobItem(company="A", job_id="1", title="产品经理", location="上海",
+                       category="产品", description="负责用户增长")
+        assert base.content_fingerprint == same.content_fingerprint
+        # JD 变了 → 指纹变（标题/地点没变也能识别）
+        jd_changed = JobItem(company="A", job_id="1", title="产品经理", location="上海",
+                             category="产品", description="要求3年以上经验")
+        assert jd_changed.content_fingerprint != base.content_fingerprint
+
+    def test_updated_fires_on_jd_change_only(self):
+        # 标题、地点都不变，只有 JD 变 → 旧逻辑抓不到，新指纹能抓到 UPDATED
+        store.save_jobs([JobItem(company="腾讯", job_id="1", title="产品", location="上海",
+                                 recruit_type="社招", description="1年经验")])
+        store.save_jobs([JobItem(company="腾讯", job_id="1", title="产品", location="上海",
+                                 recruit_type="社招", description="要求5年以上经验")])
+        assert events()[-1] == ("腾讯", "1", "UPDATED")
+
+    def test_no_update_when_unchanged(self):
+        j = lambda: JobItem(company="腾讯", job_id="1", title="产品", location="上海",
+                            recruit_type="社招", description="1年经验")
+        store.save_jobs([j()])
+        store.save_jobs([j()])   # 完全一样
+        assert all(e[2] != "UPDATED" for e in events())
+
+    def test_experience_persisted(self):
+        import sqlite3
+        store.save_jobs([JobItem(company="腾讯", job_id="1", title="产品", location="上海",
+                                 recruit_type="社招", description="3-5年经验")])
+        conn = sqlite3.connect(store.DB_PATH)
+        exp = conn.execute("SELECT experience_min_years FROM jobs").fetchone()[0]
+        conn.close()
+        assert exp == 3   # "3-5年"取下限

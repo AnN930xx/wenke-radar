@@ -18,15 +18,16 @@ import os
 from datetime import datetime, date
 from typing import List, Set
 from domain.models import JobItem
+from domain.enrich import enrich        # 落库前抽取结构化字段（经验年限），供指纹与展示
 from filters import parse_recruit_year  # 届别解析属"业务规则"，统一放 filters 层
 import config
 
 DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "jobs.db")
 
-# 落库列（含来源身份）。顺序与 INSERT 值元组严格对应。
+# 落库列（含来源身份 + 内容指纹）。顺序与 INSERT 值元组严格对应。
 _JOB_COLUMNS = ("company,job_id,title,category,location,url,publish_time,tags,"
                 "recruit_type,recruit_year,source_id,source_kind,canonical_job_id,"
-                "first_seen,last_seen")
+                "content_fingerprint,experience_min_years,first_seen,last_seen")
 
 
 def _get_conn():
@@ -38,6 +39,7 @@ def _get_conn():
             url TEXT, publish_time TEXT, tags TEXT,
             recruit_type TEXT DEFAULT '校招', recruit_year TEXT DEFAULT '不限',
             source_id TEXT, source_kind TEXT, canonical_job_id TEXT DEFAULT '',
+            content_fingerprint TEXT, experience_min_years INTEGER,
             first_seen TEXT, last_seen TEXT,
             PRIMARY KEY (company, job_id)
         )
@@ -48,6 +50,7 @@ def _get_conn():
             url TEXT, publish_time TEXT, tags TEXT,
             recruit_type TEXT DEFAULT '校招', recruit_year TEXT DEFAULT '不限',
             source_id TEXT, source_kind TEXT, canonical_job_id TEXT DEFAULT '',
+            content_fingerprint TEXT, experience_min_years INTEGER,
             first_seen TEXT, last_seen TEXT, archived_at TEXT,
             PRIMARY KEY (company, job_id)
         )
@@ -87,7 +90,9 @@ def _migrate_columns(conn):
         for col, ddl in (("recruit_type", "TEXT DEFAULT '校招'"),
                          ("recruit_year", "TEXT DEFAULT '不限'"),
                          ("source_id", "TEXT"), ("source_kind", "TEXT"),
-                         ("canonical_job_id", "TEXT DEFAULT ''")):
+                         ("canonical_job_id", "TEXT DEFAULT ''"),
+                         ("content_fingerprint", "TEXT"),
+                         ("experience_min_years", "INTEGER")):
             if col not in cols:
                 conn.execute(f"ALTER TABLE {table} ADD COLUMN {col} {ddl}")
         if need_source:
@@ -149,16 +154,19 @@ def save_jobs(jobs: List[JobItem], suspect_sources: Set[str] = None) -> Set[str]
                      " VALUES (?,?,?,?,?,?)", (now, source_id, company, job_id, event, title))
 
     for job in jobs:
+        enrich(job)                      # 落库前抽取经验年限（供指纹与展示；幂等）
+        fp = job.content_fingerprint     # 标题/地点/类别/JD 任一变化即变
         current_ids.setdefault(job.source_id, set()).add(job.job_id)
         existing = conn.execute(
-            "SELECT first_seen, title, location FROM jobs WHERE source_id=? AND job_id=?",
+            "SELECT first_seen, content_fingerprint FROM jobs WHERE source_id=? AND job_id=?",
             (job.source_id, job.job_id)).fetchone()
         if existing is None:
             conn.execute(
-                f"INSERT INTO jobs ({_JOB_COLUMNS}) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                f"INSERT INTO jobs ({_JOB_COLUMNS}) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                 (job.company, job.job_id, job.title, job.category, job.location,
                  job.url, job.publish_time, job.tags, job.recruit_type, _job_year(job),
-                 job.source_id, job.source_kind, job.canonical_job_id, now, now))
+                 job.source_id, job.source_kind, job.canonical_job_id,
+                 fp, job.experience_min_years, now, now))
             inserted_count[job.source_id] = inserted_count.get(job.source_id, 0) + 1
             if job.source_id in bootstrap_sources:
                 log_event(job.source_id, job.company, job.job_id, "BOOTSTRAP", job.title)
@@ -170,15 +178,19 @@ def save_jobs(jobs: List[JobItem], suspect_sources: Set[str] = None) -> Set[str]
                 log_event(job.source_id, job.company, job.job_id,
                           "REOPENED" if was_archived else "CREATED", job.title)
         else:
-            if (existing[1], existing[2]) != (job.title, job.location):
+            # 内容指纹变化=真 UPDATED（含 JD/要求变化）。老库迁移后指纹为 NULL：
+            # 首见时静默采纳、不报 UPDATED，只有后续真变化才记事件（避免迁移 UPDATED 洪水）。
+            stored_fp = existing[1]
+            if stored_fp is not None and stored_fp != fp:
                 log_event(job.source_id, job.company, job.job_id, "UPDATED", job.title)
             conn.execute(
                 "UPDATE jobs SET title=?,category=?,location=?,url=?,publish_time=?,"
-                "tags=?,recruit_type=?,recruit_year=?,source_kind=?,last_seen=? "
+                "tags=?,recruit_type=?,recruit_year=?,source_kind=?,"
+                "content_fingerprint=?,experience_min_years=?,last_seen=? "
                 "WHERE source_id=? AND job_id=?",
                 (job.title, job.category, job.location, job.url, job.publish_time,
-                 job.tags, job.recruit_type, _job_year(job), job.source_kind, now,
-                 job.source_id, job.job_id))
+                 job.tags, job.recruit_type, _job_year(job), job.source_kind,
+                 fp, job.experience_min_years, now, job.source_id, job.job_id))
 
     # 归档已下线岗位（仅处理本次抓到岗位的来源）
     archived = 0
@@ -211,7 +223,7 @@ def save_jobs(jobs: List[JobItem], suspect_sources: Set[str] = None) -> Set[str]
         for row in stale:
             conn.execute(
                 f"INSERT OR REPLACE INTO jobs_archive ({_JOB_COLUMNS},archived_at) "
-                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (*row, now))
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (*row, now))
             log_event(row[10], row[0], row[1], "CLOSED", row[2])  # source_id,company,job_id,title
         conn.execute(
             f"DELETE FROM jobs WHERE source_id=? AND job_id NOT IN ({placeholders})",
