@@ -46,7 +46,7 @@ class TestSuspectSkipsArchive:
         jobs12 = [JobItem(company="A", job_id=f"j{i}", title=f"岗{i}") for i in range(12)]
         store.save_jobs(jobs12)
         # 疑似不完整：只抓到 4 个 + 被标 suspect → 不归档（库存不动）
-        store.save_jobs(jobs12[:4], suspect_companies={"A"})
+        store.save_jobs(jobs12[:4], suspect_sources={"A"})
         assert store.get_all_jobs_count() == 12
         # 下次抓全了 → 正常归档恢复
         store.save_jobs(jobs12[:8])

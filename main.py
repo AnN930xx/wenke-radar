@@ -90,10 +90,12 @@ def main():
 
     all_jobs, raw_counts, fetch_results = run_all_scrapers(build_http_session())
 
-    # 完整性判定：疑似不完整的源本次跳过归档（防"部分抓取→误判下线"）
-    suspects = {r.source for r in fetch_results if r.complete is False and r.success}
+    # 完整性判定（分级）：只有官方源的"疑似不完整"才跳过归档 + 告警——
+    # 聚合发现源（猎聘/牛客/offerstar）本就不 authoritative，其不完整是常态、不误报警。
+    suspects = {r.source for r in fetch_results
+                if r.complete is False and r.success and config.is_authoritative(r.source)}
     health_notes = [r.describe() for r in fetch_results
-                    if not r.success or r.complete is False]
+                    if not r.success or (r.complete is False and config.is_authoritative(r.source))]
     if health_notes:
         print("\n⚠️ 数据完整性告警：")
         for note in health_notes:
@@ -101,10 +103,10 @@ def main():
 
     if full_mode:
         store.clear_all()
-        store.save_jobs(all_jobs, suspect_companies=suspects)
+        store.save_jobs(all_jobs, suspect_sources=suspects)
         new_keys = set()   # 初始化建库，不报新增
     else:
-        new_keys = store.save_jobs(all_jobs, suspect_companies=suspects)
+        new_keys = store.save_jobs(all_jobs, suspect_sources=suspects)
     store.save_source_health(fetch_results)
 
     print(f"\n{'=' * 50}")

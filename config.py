@@ -163,6 +163,33 @@ def apply_user_directions(extra: dict = None) -> list:
 
 apply_user_directions()
 
+# ==================== 来源分级（二轮外部审查采纳）====================
+# 每个源标注可信等级：官方源（公司官网/公开 ATS）可为"岗位关闭/更新时间/真实性"背书；
+# 聚合发现源（猎聘/offerstar/牛客）只作线索发现，不 authoritative。
+# 用途：完整性告警分级（聚合源不完整不误报警）、未来跨源去重与"岗位关闭"判定。
+_ATS_SOURCES = {
+    "字节跳动", "小米", "元气森林", "字节跳动(社招)", "小米(社招)",              # 飞书 ATS
+    "泡泡玛特", "名创优品", "蒙牛", "泡泡玛特(社招)", "名创优品(社招)", "蒙牛(社招)",  # 北森
+    "欧莱雅", "伊利", "伊利(社招)",                                          # 百库
+    "农夫山泉", "滴滴",                                                     # Moka
+}
+_AGGREGATOR_SOURCES = {"牛客日程", "宽创国际", "凯谛思"}   # 猎聘/牛客系；offerstar 走前缀匹配
+
+
+def source_kind(source_id: str) -> str:
+    """源的可信等级：OFFICIAL_ATS / OFFICIAL_CAREERS / AGGREGATOR_DISCOVERY"""
+    name = source_id or ""
+    if name.startswith("offerstar") or name in _AGGREGATOR_SOURCES:
+        return "AGGREGATOR_DISCOVERY"
+    if name in _ATS_SOURCES:
+        return "OFFICIAL_ATS"
+    return "OFFICIAL_CAREERS"
+
+
+def is_authoritative(source_id: str) -> bool:
+    """官方源可为岗位关闭/时效背书；聚合发现源不可。"""
+    return source_kind(source_id) != "AGGREGATOR_DISCOVERY"
+
 # ==================== 排除关键词 ====================
 # 岗位标题含以下词的直接排除（技术/研发类岗位常带"电商/运营/产品"字样造成误报）
 EXCLUDE_TITLE_KEYWORDS = [
