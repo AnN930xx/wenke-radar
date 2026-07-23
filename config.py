@@ -34,6 +34,9 @@ ENABLED_COMPANIES = {
     "元气森林": True,    # 飞书ATS多租户(jobs.feishu.cn/352020)
     # --- 文化艺术机构（新增） ---
     "UCCA": True,        # UCCA当代艺术中心（含策展/展览类岗位与实习）
+    # --- 快消/零售第三批（北森平台）---
+    "保利发展": True,    # 北森；校招策划管培/运营管理/企业管理（对口运营/增长营销）
+    "青岛啤酒": True,    # 北森；校招菁英计划（销售/国贸/职能）
     # --- 聚合平台（新增） ---
     "牛客日程": True,    # 牛客网校招日程，覆盖2万+公司的校招项目（公司级信息）
     # --- 社招源（已毕业求职者社招机会更多；豁免届别/实习过滤）---
@@ -49,6 +52,11 @@ ENABLED_COMPANIES = {
     "小米(社招)": True,       # 飞书ATS portal_type=2（同字节社招套路）
     "B站(社招)": True,        # X-Channel=society（互联网大厂社招）
     "京东(社招)": True,       # zhaopin.jd.com 老JSP站，form编码接口
+    # --- 快消/零售第三批社招（北森 category=1）---
+    "青岛啤酒(社招)": True,   # 数字化/推广/业务代表
+    "喜茶(社招)": True,       # 社招大户（4千+，含产品策划/品牌/设计）；page_size=200
+    "维达(社招)": True,       # 数字营销/数据分析
+    "统一(社招)": True,       # 社招大户（8百+，含推广/经销/市场）；page_size=200
     # 示例：无官方API、只在猎聘招人的公司（按需替换或停用）
     "宽创国际": True,         # 博物馆展陈/文物IP/策展（策展方向靶心）
     "凯谛思": True,           # Arcadis，文化遗产/考古外企
@@ -170,6 +178,8 @@ apply_user_directions()
 _ATS_SOURCES = {
     "字节跳动", "小米", "元气森林", "字节跳动(社招)", "小米(社招)",              # 飞书 ATS
     "泡泡玛特", "名创优品", "蒙牛", "泡泡玛特(社招)", "名创优品(社招)", "蒙牛(社招)",  # 北森
+    "保利发展", "青岛啤酒", "青岛啤酒(社招)",                                  # 北森（快消第三批）
+    "喜茶(社招)", "维达(社招)", "统一(社招)",                                 # 北森（快消第三批）
     "欧莱雅", "伊利", "伊利(社招)",                                          # 百库
     "农夫山泉", "滴滴",                                                     # Moka
 }
@@ -195,6 +205,9 @@ def is_authoritative(source_id: str) -> bool:
 EXCLUDE_TITLE_KEYWORDS = [
     "工程师", "算法", "开发", "研发", "测试", "运维", "架构",
     "大模型", "前端", "后端", "客户端", "嵌入式", "芯片", "SRE",
+    # 生产/门店/医护类（快消工厂+茶饮门店常见，非文科目标岗）
+    "操作员", "操作工", "技术员", "兼职", "调茶师", "烘焙师",
+    "护士", "护工", "护理员",
 ]
 
 # ==================== 届别过滤（画像驱动，任意年份随便改）====================
@@ -350,6 +363,19 @@ COMPANY_CONFIG = {
         # tab=2/3 为近期更新与即将截止的活跃子集（全量档案tab=1有2万+条，不抓）
         "tabs": [2, 3],
     },
+    # ---------- 快消/零售第三批校招（北森 category=2）----------
+    "保利发展": {
+        # 北森；策划管培/运营管理/企业管理（polynew.zhiye.com 为同租户别名）
+        "host": "https://polycareer.zhiye.com",
+        "category": 2,
+        "complete_ratio": 0.6,    # 北森 Count 虚高（含未上架），实抓约七成
+    },
+    "青岛啤酒": {
+        # 北森；菁英计划（销售/国贸/财务/工艺）
+        "host": "https://tsingtao.zhiye.com",
+        "category": 2,
+        "complete_ratio": 0.55,   # 北森 Count 虚高
+    },
     # ---------- 社招源 ----------
     "美团(社招)": {
         "job_type_filter": "3",   # 3=社招
@@ -409,6 +435,35 @@ COMPANY_CONFIG = {
         "job_nature": "社招",
     },
     # 小红书(社招)/B站(社招) 无需专属参数（job_nature 在各自抓取器类里设）
+    # ---------- 快消/零售第三批社招（北森 category=1）----------
+    "青岛啤酒(社招)": {
+        "host": "https://tsingtao.zhiye.com",
+        "category": 1,            # 1=社招
+        "job_nature": "社招",
+        "complete_ratio": 0.45,   # 北森 Count 虚高（社招尤甚）
+    },
+    "喜茶(社招)": {
+        # 社招大户（4千+）；北森 pageSize 可到 200，翻页成本可控
+        "host": "https://heytea.zhiye.com",
+        "category": 1,
+        "page_size": 200,
+        "job_nature": "社招",
+        "complete_ratio": 0.85,
+    },
+    "维达(社招)": {
+        "host": "https://vinda.zhiye.com",
+        "category": 1,
+        "job_nature": "社招",
+        "complete_ratio": 0.8,
+    },
+    "统一(社招)": {
+        # 社招大户（8百+）；pageSize=200 → 约5页
+        "host": "https://uni-president.zhiye.com",
+        "category": 1,
+        "page_size": 200,
+        "job_nature": "社招",
+        "complete_ratio": 0.7,    # 北森 Count 虚高
+    },
     "宽创国际": {
         # 猎聘手机版公司页；反爬不稳定→no_archive 防抖动
         "company_id": "9584536",

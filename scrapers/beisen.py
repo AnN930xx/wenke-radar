@@ -111,3 +111,28 @@ class MengniuScraper(BeisenScraper):
 
 class MengniuSocialScraper(BeisenScraper):
     name = "蒙牛(社招)"
+
+
+# ---------- 批次26 扩源：快消/零售第三批（北森租户，host 见 config）----------
+class PolyDevScraper(BeisenScraper):
+    name = "保利发展"          # 校招：策划管培/运营管理/企业管理（对口运营/增长营销）
+
+
+class TsingtaoScraper(BeisenScraper):
+    name = "青岛啤酒"          # 校招：菁英计划（销售/国贸/职能）
+
+
+class TsingtaoSocialScraper(BeisenScraper):
+    name = "青岛啤酒(社招)"     # 社招：数字化/推广/业务代表
+
+
+class HeyteaSocialScraper(BeisenScraper):
+    name = "喜茶(社招)"        # 社招大户（4千+，含产品策划/品牌/设计）
+
+
+class VindaSocialScraper(BeisenScraper):
+    name = "维达(社招)"        # 社招：数字营销/数据分析
+
+
+class UniPresidentSocialScraper(BeisenScraper):
+    name = "统一(社招)"        # 社招大户（8百+，含推广/经销/市场）

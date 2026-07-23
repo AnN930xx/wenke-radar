@@ -18,7 +18,10 @@ from .mihoyo import MihoyoScraper
 from .meituan import MeituanScraper, MeituanSocialScraper
 from .beisen import (PopmartScraper, MinisoScraper,
                      PopmartSocialScraper, MinisoSocialScraper,
-                     MengniuScraper, MengniuSocialScraper)
+                     MengniuScraper, MengniuSocialScraper,
+                     PolyDevScraper, TsingtaoScraper, TsingtaoSocialScraper,
+                     HeyteaSocialScraper, VindaSocialScraper,
+                     UniPresidentSocialScraper)
 from .yili import YiliScraper, YiliSocialScraper
 from .ucca import UccaScraper
 from .nowcoder import NowcoderScraper
@@ -55,6 +58,9 @@ SCRAPERS = {
     "元气森林": GenkiForestScraper,
     "UCCA": UccaScraper,
     "牛客日程": NowcoderScraper,
+    # --- 快消/零售第三批（北森平台）---
+    "保利发展": PolyDevScraper,
+    "青岛啤酒": TsingtaoScraper,
     # --- 社招源（豁免届别/实习过滤，只按方向+城市筛）---
     "美团(社招)": MeituanSocialScraper,
     "泡泡玛特(社招)": PopmartSocialScraper,
@@ -68,6 +74,10 @@ SCRAPERS = {
     "小米(社招)": XiaomiSocialScraper,
     "B站(社招)": BilibiliSocialScraper,
     "京东(社招)": JdSocialScraper,
+    "青岛啤酒(社招)": TsingtaoSocialScraper,
+    "喜茶(社招)": HeyteaSocialScraper,
+    "维达(社招)": VindaSocialScraper,
+    "统一(社招)": UniPresidentSocialScraper,
     # 猎聘公司页示例源（策展/文化遗产方向，按需替换）
     "宽创国际": KuanChuangScraper,
     "凯谛思": ArcadisScraper,
