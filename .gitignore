@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.DS_Store
+# 岗位库是可再生的抓取数据：本地各自维护，云端用 Actions cache 接力，不进 git
+# （投递记录在 data/applications.db，是人工数据，必须进 git！）
+data/jobs.db

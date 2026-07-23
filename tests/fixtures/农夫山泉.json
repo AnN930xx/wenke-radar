@@ -1,0 +1,35 @@
+{
+ "source": "农夫山泉",
+ "recorded_at": "2026-07-22",
+ "samples": [
+  [
+   {
+    "attributeId": 81203,
+    "deptId": 1869700,
+    "hireMode": 2,
+    "id": "fd359268-6069-4b4a-aecd-c92f0f396bcf",
+    "multiLocale": "{\"mainLocale\":\"zh-CN\",\"secondLocale\":\"\"}",
+    "orgId": "yst",
+    "status": "open",
+    "title": "行销校招生（2028、2029届-可实习）"
+   },
+   "https://app.mokahr.com",
+   "yst",
+   68367
+  ],
+  [
+   {
+    "deptId": 1869700,
+    "hireMode": 2,
+    "id": "3a1c112f-3b65-480b-ad8a-86741ff88002",
+    "multiLocale": "{\"mainLocale\":\"zh-CN\",\"secondLocale\":\"\"}",
+    "orgId": "yst",
+    "status": "open",
+    "title": "行销校招生（2027届）"
+   },
+   "https://app.mokahr.com",
+   "yst",
+   68367
+  ]
+ ]
+}

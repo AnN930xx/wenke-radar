@@ -1,0 +1,144 @@
+name: 秋招雷达日报
+
+on:
+  schedule:
+    - cron: '0 1 * * *'   # 主触发点：UTC 01:00 = 北京时间 09:00
+    - cron: '0 2 * * *'   # 备份触发点：北京 10:00——GitHub cron 高负载时会延迟甚至丢弃
+                          # （2026-07-23 实测 09:00 点延迟 40+ 分钟未触发），当天已出报告则自动跳过
+  workflow_dispatch:       # 允许手动触发（不受去重守卫限制）
+
+permissions:
+  contents: write          # commit 日报归档需要写权限
+  actions: read            # 快照兜底恢复要列出/下载历史 run 的 artifact
+
+# 同一时刻只允许一个实例运行：防止定时跑与手动跑并发恢复同一份旧库、
+# 各自写出两份分叉状态（后到的排队等待，不取消先到的）
+concurrency:
+  group: daily-radar
+  cancel-in-progress: false
+
+jobs:
+  daily-scan:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Shanghai    # 统一北京时间，日期计算不跨日
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: pip install -r requirements.txt
+
+      # 岗位库 jobs.db 可再生、不进 git，用 Actions cache 在每日运行间接力：
+      # key 带 run_id 保证精确匹配永远落空，从而走 restore-keys 前缀匹配，
+      # 恢复出"最近一次保存"的库 —— 实现每日增量对比。
+      - name: 恢复岗位数据库（Actions cache）
+        uses: actions/cache/restore@v4
+        with:
+          path: data/jobs.db
+          key: jobs-db-${{ github.run_id }}
+          restore-keys: |
+            jobs-db-
+
+      # Cache 只是加速通道（保留期短、可被驱逐，不能当唯一状态库）。
+      # 未命中时从最近一次运行上传的快照 artifact（90 天保留）恢复，去掉状态单点。
+      - name: 快照兜底恢复（cache 未命中时）
+        if: ${{ hashFiles('data/jobs.db') == '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "Cache 未命中，尝试从最近运行的快照 artifact 恢复..."
+          for id in $(gh run list --workflow daily.yml --limit 20 --json databaseId --jq '.[].databaseId'); do
+            if gh run download "$id" --name jobs-db-snapshot --dir data/ 2>/dev/null; then
+              echo "已从 run $id 恢复数据库快照"
+              break
+            fi
+          done
+          if [ -f data/jobs.db ]; then
+            echo "快照恢复成功"
+          else
+            echo "无可用快照，将执行首次全量初始化"
+          fi
+
+      # 定时触发（含备份触发点/延迟补发的主触发点）去重：当天日报文件已存在
+      # 说明今天已经跑过并推送过，直接跳过抓取，避免重复推送。手动触发不受此限。
+      - name: 定时触发去重守卫
+        id: guard
+        run: |
+          TODAY=$(date +%Y-%m-%d)
+          if [ "${{ github.event_name }}" = "schedule" ] && [ -f "reports/${TODAY}.md" ]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+            echo "今日日报已生成（较早触发点已跑过），本次跳过"
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 运行抓取
+        if: steps.guard.outputs.skip != 'true'
+        env:
+          PUSH_KEY: ${{ secrets.PUSH_KEY }}
+          WECOM_KEY: ${{ secrets.WECOM_KEY }}
+        run: |
+          # 库不存在（首次部署 / cache 失效）就全量初始化，否则日常增量
+          if [ -f data/jobs.db ]; then
+            python main.py
+          else
+            python main.py --full
+          fi
+
+      - name: 保存岗位数据库（Actions cache）
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: data/jobs.db
+          key: jobs-db-${{ github.run_id }}
+
+      - name: 上传数据库快照（90 天持久兜底）
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jobs-db-snapshot
+          path: data/jobs.db
+          retention-days: 90
+          if-no-files-found: ignore
+
+      - name: 导出投递追踪表
+        if: always()
+        run: python tracker.py export || true
+
+      - name: 写入 Actions 运行摘要
+        if: always()
+        run: |
+          TODAY=$(date +%Y-%m-%d)
+          if [ -f "reports/${TODAY}.md" ]; then
+            cat "reports/${TODAY}.md" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "今日简报未生成，请检查运行日志" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: 提交简报归档
+        if: always()
+        run: |
+          git config user.name "campus-radar-bot"
+          git config user.email "bot@campus-radar.local"
+          git add reports/ || true
+          if git diff --staged --quiet; then
+            echo "今日无变化，无需提交"
+            exit 0
+          fi
+          git commit -m "📰 秋招雷达日报 $(date +%Y-%m-%d)"
+          # 推送前 rebase 远端并重试，避免与手动提交撞成非 fast-forward
+          for i in 1 2 3; do
+            git pull --rebase --autostash origin main || true
+            if git push origin HEAD:main; then
+              echo "推送成功"; exit 0
+            fi
+            echo "推送被拒（远端已更新），重试 $i/3..."
+            sleep 3
+          done
+          echo "重试用尽，本次归档提交失败（不影响明日运行）"

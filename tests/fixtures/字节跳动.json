@@ -1,0 +1,386 @@
+{
+ "source": "字节跳动",
+ "recorded_at": "2026-07-22",
+ "samples": [
+  [
+   {
+    "id": "7662216206632405253",
+    "title": "服务体验运营实习生-抖音电商",
+    "sub_title": null,
+    "description": "日常实习：面向全体在校生，为符合岗位要求的同学提供为期3个月及以上的项目实践机会。\n团队介绍：抖音电商以“总能发现好东西”为主张，致力于成为用户发现丰富好物的首选平台。众多抖音创作者通过短视频、直播、商城等丰富的形式，给用户提供更个性化、更生动、更高效的消费体验。同时，抖音电商积极引入优质合作伙伴，为商家变现提供多元的选择。\n\n1、通过数据分析和调研，洞察细分行业治理问题和痛点，协同各域治理团队，通过优化规则尺度、策略精细化、产品表达清晰化等方式，有效提升治理准确性，控制风险漏放和体验误伤，同时合理减少对业务的影响；\n2、基于对业务全链路的理解和分析，结合供给增长策略，对治理策略以及产品、流程等提出优化策略，并跟进策略实施；\n3、监控相关数据指标波动，独立完成数据分析，发现策略漏洞，推动策略优化、标准迭代，评估治理策略有效性。",
+    "requirement": "1、本科及以上学历在读；\n2、对抖音平台和电商业务有浓厚兴趣，具备良好的沟通能力、团队合作精神、学习能力和数据分析能力，工作积极主动，责任心强，有电商类岗位实习经验优先；\n3、熟练使用办公软件；\n4、每周可实习5天，可连续实习6个月。",
+    "job_category": {
+     "id": "6704215882479962371",
+     "name": "运营",
+     "en_name": "Operations",
+     "i18n_name": "运营",
+     "depth": 1,
+     "parent": null,
+     "children": null
+    },
+    "city_info": {
+     "code": "CT_11",
+     "name": "北京",
+     "en_name": "Beijing",
+     "location_type": null,
+     "i18n_name": "北京",
+     "py_name": null,
+     "mdm_code": null,
+     "node_status": null
+    },
+    "recruit_type": {
+     "id": "202",
+     "name": "实习",
+     "en_name": "Intern",
+     "i18n_name": "实习",
+     "depth": 2,
+     "parent": {
+      "id": "2",
+      "name": "校招",
+      "en_name": "Campus",
+      "i18n_name": "校招",
+      "depth": 1,
+      "parent": null,
+      "children": null,
+      "active_status": 1,
+      "selectability": 1
+     },
+     "children": null,
+     "active_status": 1,
+     "selectability": 1
+    },
+    "publish_time": 1783998775971,
+    "job_hot_flag": null,
+    "job_subject": {
+     "id": "7194661644654577981",
+     "name": {
+      "zh_cn": "日常实习",
+      "en_us": null,
+      "i18n": "日常实习"
+     },
+     "limit_count": null,
+     "active_status": 1,
+     "subject_group_info": null
+    },
+    "code": "A186725",
+    "department_id": null,
+    "job_function": null,
+    "job_process_id": "20000",
+    "recommend_id": null,
+    "city_list": [
+     {
+      "code": "CT_11",
+      "name": "北京",
+      "en_name": "Beijing",
+      "location_type": null,
+      "i18n_name": "北京",
+      "py_name": null,
+      "mdm_code": null,
+      "node_status": null
+     }
+    ],
+    "job_post_info": {
+     "id": null,
+     "job_id": null,
+     "title": null,
+     "sub_title": null,
+     "address_id": null,
+     "address": "中国大陆北京市海淀区花园东路19号中兴大厦1层，邮编：100191",
+     "city": null,
+     "education": null,
+     "experience": null,
+     "description": null,
+     "requirement": null,
+     "min_salary": null,
+     "max_salary": null,
+     "currency": null,
+     "head_count": null,
+     "crator_id": null,
+     "expiry_time": null,
+     "progress": null,
+     "department_id": null,
+     "job_type": null,
+     "recruitment_type": {
+      "id": "202",
+      "name": "实习",
+      "en_name": "Intern",
+      "i18n_name": "实习",
+      "depth": 2,
+      "parent": {
+       "id": "2",
+       "name": "校招",
+       "en_name": "Campus",
+       "i18n_name": "校招",
+       "depth": 1,
+       "parent": null,
+       "children": null,
+       "active_status": 1,
+       "selectability": 1
+      },
+      "children": null,
+      "active_status": 1,
+      "selectability": 1
+     },
+     "job_process_time": null,
+     "job_in_charge_user_id": null,
+     "biz_create_time": null,
+     "HighlightList": null,
+     "JobChannelPublishList": null,
+     "required_degree": null,
+     "never_expiry": null,
+     "job_hot_flag": null,
+     "subject": null,
+     "sequence": null,
+     "min_level": null,
+     "max_level": null,
+     "job_post_object_value_map": {},
+     "code": null,
+     "job_active_status": null,
+     "job_process_type": null,
+     "biz_modify_time": null,
+     "job_function": null,
+     "job_process": null,
+     "job_process_id": null,
+     "job_category": null,
+     "address_list": [
+      {
+       "id": "1137",
+       "name": "中国大陆北京市海淀区花园东路19号中兴大厦1层，邮编：100191",
+       "en_name": "花园东路19号中兴大厦1层, Haidian, Beijing, Beijing, Chinese Mainland, 100191",
+       "district": {
+        "district_code": "DS_2",
+        "name": "海淀区",
+        "en_name": "Haidian",
+        "i18n_name": "海淀区"
+       },
+       "city": {
+        "city_code": "CT_11",
+        "name": "北京",
+        "en_name": "Beijing",
+        "i18n_name": "北京",
+        "py_name": "beijing"
+       },
+       "state": {
+        "state_code": "ST_8",
+        "name": "北京",
+        "en_name": "Beijing",
+        "i18n_name": "北京"
+       },
+       "country": {
+        "country_code": "CN_1",
+        "name": "中国大陆",
+        "en_name": "Chinese Mainland",
+        "i18n_name": "中国大陆"
+       },
+       "i18n_name": "中国大陆北京市海淀区花园东路19号中兴大厦1层，邮编：100191",
+       "active_status": 1
+      }
+     ],
+     "city_list": null,
+     "correlation_job_list": null,
+     "tag_list": null,
+     "department": null,
+     "job_storefront_mode": null,
+     "storefront_list": null,
+     "target_major_list": null,
+     "schema": null,
+     "job_post_process_time_list": null,
+     "job_level_id_list": null
+    },
+    "storefront_mode": 1,
+    "storefront_list": null,
+    "process_type": 2
+   }
+  ],
+  [
+   {
+    "id": "7662211069532342581",
+    "title": "商业产品（短剧出海方向）实习生 - 国际化内容与服务广告",
+    "sub_title": null,
+    "description": "团队介绍：内容与服务广告团队是全球变现产品组织的一部分，负责为应用下载、游戏、短剧、线索等行业客户构建广告产品。我们的愿景是通过构建支持独特垂直需求、新的变现模式和应用生命周期不同阶段的产品，使我们的产品成为营销人员获取、保留和变现用户的领先平台。\n\n日常实习：面向全体在校生，为符合岗位要求的同学提供为期3个月及以上的项目实践机会。\n\n1、参与短漫剧出海“全自动转产分发”产品体系建设，围绕内容转产、素材生产、广告投放、效果反馈，搭建自动化链路；\n2、和财税法、算法、工程、运营、内容、出海业务等多团队协同，完成信息同步、方案讨论、需求跟进、解决关键问题，推动项目0-1的上线；\n3、与业务方完成具体需求的收集和沟通，进行需求分析，并整理成清晰的需求文档，推进需求的落地。",
+    "requirement": "1、本科及以上学历在读；\n2、对广告领域/短漫剧行业/出海业务感兴趣；具备优秀的抽象能力与系统化思维，具备一定的信息搜集和分析能力，对行业研究有兴趣，能快速梳理关键信息并形成初步判断；\n3、乐观开朗、有求知欲、自驱、积极主动；\n4、连续实习不少于4-5个月。\n\n加分项：\n1、有对应的实习经历、了解广告投放/ROI优化/IAA变现模式/短漫剧分销等。",
+    "job_category": {
+     "id": "6704215864629004552",
+     "name": "产品",
+     "en_name": "Product",
+     "i18n_name": "产品",
+     "depth": 1,
+     "parent": null,
+     "children": null
+    },
+    "city_info": {
+     "code": "CT_11",
+     "name": "北京",
+     "en_name": "Beijing",
+     "location_type": null,
+     "i18n_name": "北京",
+     "py_name": null,
+     "mdm_code": null,
+     "node_status": null
+    },
+    "recruit_type": {
+     "id": "202",
+     "name": "实习",
+     "en_name": "Intern",
+     "i18n_name": "实习",
+     "depth": 2,
+     "parent": {
+      "id": "2",
+      "name": "校招",
+      "en_name": "Campus",
+      "i18n_name": "校招",
+      "depth": 1,
+      "parent": null,
+      "children": null,
+      "active_status": 1,
+      "selectability": 1
+     },
+     "children": null,
+     "active_status": 1,
+     "selectability": 1
+    },
+    "publish_time": 1783997616446,
+    "job_hot_flag": null,
+    "job_subject": {
+     "id": "7194661644654577981",
+     "name": {
+      "zh_cn": "日常实习",
+      "en_us": null,
+      "i18n": "日常实习"
+     },
+     "limit_count": null,
+     "active_status": 1,
+     "subject_group_info": null
+    },
+    "code": "A19916",
+    "department_id": null,
+    "job_function": null,
+    "job_process_id": "20000",
+    "recommend_id": null,
+    "city_list": [
+     {
+      "code": "CT_11",
+      "name": "北京",
+      "en_name": "Beijing",
+      "location_type": null,
+      "i18n_name": "北京",
+      "py_name": null,
+      "mdm_code": null,
+      "node_status": null
+     }
+    ],
+    "job_post_info": {
+     "id": null,
+     "job_id": null,
+     "title": null,
+     "sub_title": null,
+     "address_id": null,
+     "address": "中国大陆北京市朝阳区七圣中街12号院融中心B座，邮编：100020",
+     "city": null,
+     "education": null,
+     "experience": null,
+     "description": null,
+     "requirement": null,
+     "min_salary": null,
+     "max_salary": null,
+     "currency": null,
+     "head_count": null,
+     "crator_id": null,
+     "expiry_time": null,
+     "progress": null,
+     "department_id": null,
+     "job_type": null,
+     "recruitment_type": {
+      "id": "202",
+      "name": "实习",
+      "en_name": "Intern",
+      "i18n_name": "实习",
+      "depth": 2,
+      "parent": {
+       "id": "2",
+       "name": "校招",
+       "en_name": "Campus",
+       "i18n_name": "校招",
+       "depth": 1,
+       "parent": null,
+       "children": null,
+       "active_status": 1,
+       "selectability": 1
+      },
+      "children": null,
+      "active_status": 1,
+      "selectability": 1
+     },
+     "job_process_time": null,
+     "job_in_charge_user_id": null,
+     "biz_create_time": null,
+     "HighlightList": null,
+     "JobChannelPublishList": null,
+     "required_degree": null,
+     "never_expiry": null,
+     "job_hot_flag": null,
+     "subject": null,
+     "sequence": null,
+     "min_level": null,
+     "max_level": null,
+     "job_post_object_value_map": {},
+     "code": null,
+     "job_active_status": null,
+     "job_process_type": null,
+     "biz_modify_time": null,
+     "job_function": null,
+     "job_process": null,
+     "job_process_id": null,
+     "job_category": null,
+     "address_list": [
+      {
+       "id": "7512396366590803987",
+       "name": "中国大陆北京市朝阳区七圣中街12号院融中心B座，邮编：100020",
+       "en_name": "Building B, Fusion Centre , No. 12, Qisheng Middle Street, Chaoyang, Beijing, Beijing, Chinese Mainland, 100020",
+       "district": {
+        "district_code": "DS_1",
+        "name": "朝阳区",
+        "en_name": "Chaoyang",
+        "i18n_name": "朝阳区"
+       },
+       "city": {
+        "city_code": "CT_11",
+        "name": "北京",
+        "en_name": "Beijing",
+        "i18n_name": "北京",
+        "py_name": "beijing"
+       },
+       "state": {
+        "state_code": "ST_8",
+        "name": "北京",
+        "en_name": "Beijing",
+        "i18n_name": "北京"
+       },
+       "country": {
+        "country_code": "CN_1",
+        "name": "中国大陆",
+        "en_name": "Chinese Mainland",
+        "i18n_name": "中国大陆"
+       },
+       "i18n_name": "中国大陆北京市朝阳区七圣中街12号院融中心B座，邮编：100020",
+       "active_status": 1
+      }
+     ],
+     "city_list": null,
+     "correlation_job_list": null,
+     "tag_list": null,
+     "department": null,
+     "job_storefront_mode": null,
+     "storefront_list": null,
+     "target_major_list": null,
+     "schema": null,
+     "job_post_process_time_list": null,
+     "job_level_id_list": null
+    },
+    "storefront_mode": 1,
+    "storefront_list": null,
+    "process_type": 2
+   }
+  ]
+ ]
+}

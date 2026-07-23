@@ -1,0 +1,3 @@
+# 数据库是二进制文件，禁止文本合并（冲突时手动取更全的一份，见 docs/错误日志.md 第4条）
+data/jobs.db binary
+*.xlsx binary

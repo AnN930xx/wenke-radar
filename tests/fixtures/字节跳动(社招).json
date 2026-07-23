@@ -1,0 +1,444 @@
+{
+ "source": "字节跳动(社招)",
+ "recorded_at": "2026-07-22",
+ "samples": [
+  [
+   {
+    "id": "7655590426240059653",
+    "title": "技术项目经理-抖音隐私合规",
+    "sub_title": null,
+    "description": "1、作为抖音隐私合规安全技术项目经理，对接合规和核心技术负责人，围绕平台监管及数据安全、隐私等要求项目目标并拆解，制定结合对业务以及技术架构的理解端到端交付项目；\n2、基于合规要求，深入各业务场景，参与和协助研发侧各团队进行技术方案的设计和落地执行，协助制定和深度理解公司整体在隐私安全合规方面的技术方案，驱动和判断隐私合规标准的拉齐；\n3、负责涉及跨部门跨职能的多团队协作的重点项目/项目集的推进落地和全生命周期管理；对项目结果负责，在预期时间内达成既定目标，又兼顾业务影响；持续发现和分析团队、业务、项目中的共性问题，进行风险管理以及流程优化；\n4、作为PMO团队（项目管理办公室）一员，结合业务和团队特点，设计以及落地项目管理流程与工具，通过定量/定性分析度量研发和团队协作效率并持续提升。",
+    "requirement": "1、有推项目管理经验，流程管理、项目交付及围绕目标进行拆解、推进、拿到结果；\n2、有较强的沟通能力（满足跨部门、跨角色、跨团队沟通），良好的与人交流协作的能力；\n3、擅长数据分析；做过目标管理、通过定量定性分析将不确定性变得可控；\n4、有计算机相关背景，能够理解技术链路并识别风险问题、有判断力。\n\n加分项：\n1、有过隐私合规、数据安全相关事项的项目管理经验；对AI工具有好奇心并自己应用到工作中。",
+    "job_category": {
+     "id": "6863074795655792910",
+     "name": "项目管理",
+     "en_name": "Project Management",
+     "i18n_name": "项目管理",
+     "depth": 2,
+     "parent": {
+      "id": "6704215882479962371",
+      "name": "运营",
+      "en_name": "Operations",
+      "i18n_name": "运营",
+      "depth": 1,
+      "parent": null,
+      "children": null
+     },
+     "children": null
+    },
+    "city_info": {
+     "code": "CT_11",
+     "name": "北京",
+     "en_name": "Beijing",
+     "location_type": null,
+     "i18n_name": "北京",
+     "py_name": null,
+     "mdm_code": null,
+     "node_status": null
+    },
+    "recruit_type": {
+     "id": "101",
+     "name": "正式",
+     "en_name": "Regular",
+     "i18n_name": "正式",
+     "depth": 2,
+     "parent": {
+      "id": "1",
+      "name": "社招",
+      "en_name": "Experienced",
+      "i18n_name": "社招",
+      "depth": 1,
+      "parent": null,
+      "children": null,
+      "active_status": 1,
+      "selectability": 1
+     },
+     "children": null,
+     "active_status": 1,
+     "selectability": 1
+    },
+    "publish_time": 1782456146369,
+    "job_hot_flag": null,
+    "job_subject": null,
+    "code": "A126394A",
+    "department_id": null,
+    "job_function": null,
+    "job_process_id": "6694104661676411150",
+    "recommend_id": null,
+    "city_list": [
+     {
+      "code": "CT_11",
+      "name": "北京",
+      "en_name": "Beijing",
+      "location_type": null,
+      "i18n_name": "北京",
+      "py_name": null,
+      "mdm_code": null,
+      "node_status": null
+     }
+    ],
+    "job_post_info": {
+     "id": null,
+     "job_id": null,
+     "title": null,
+     "sub_title": null,
+     "address_id": null,
+     "address": "中国大陆北京市海淀区北三环西路甲18号大钟寺广场2号楼，邮编：100098",
+     "city": null,
+     "education": null,
+     "experience": null,
+     "description": null,
+     "requirement": null,
+     "min_salary": null,
+     "max_salary": null,
+     "currency": null,
+     "head_count": null,
+     "crator_id": null,
+     "expiry_time": null,
+     "progress": null,
+     "department_id": null,
+     "job_type": null,
+     "recruitment_type": {
+      "id": "101",
+      "name": "正式",
+      "en_name": "Regular",
+      "i18n_name": "正式",
+      "depth": 2,
+      "parent": {
+       "id": "1",
+       "name": "社招",
+       "en_name": "Experienced",
+       "i18n_name": "社招",
+       "depth": 1,
+       "parent": null,
+       "children": null,
+       "active_status": 1,
+       "selectability": 1
+      },
+      "children": null,
+      "active_status": 1,
+      "selectability": 1
+     },
+     "job_process_time": null,
+     "job_in_charge_user_id": null,
+     "biz_create_time": null,
+     "HighlightList": null,
+     "JobChannelPublishList": null,
+     "required_degree": null,
+     "never_expiry": null,
+     "job_hot_flag": null,
+     "subject": null,
+     "sequence": null,
+     "min_level": null,
+     "max_level": null,
+     "job_post_object_value_map": {},
+     "code": null,
+     "job_active_status": null,
+     "job_process_type": null,
+     "biz_modify_time": null,
+     "job_function": null,
+     "job_process": null,
+     "job_process_id": null,
+     "job_category": null,
+     "address_list": [
+      {
+       "id": "1905",
+       "name": "中国大陆北京市海淀区北三环西路甲18号大钟寺广场2号楼，邮编：100098",
+       "en_name": "Building 2, Dazhongsi Plaza, No. 18, North Third Ring West Road, Haidian, Beijing, Beijing, Chinese Mainland, 100098",
+       "district": {
+        "district_code": "DS_2",
+        "name": "海淀区",
+        "en_name": "Haidian",
+        "i18n_name": "海淀区"
+       },
+       "city": {
+        "city_code": "CT_11",
+        "name": "北京",
+        "en_name": "Beijing",
+        "i18n_name": "北京",
+        "py_name": "beijing"
+       },
+       "state": {
+        "state_code": "ST_8",
+        "name": "北京",
+        "en_name": "Beijing",
+        "i18n_name": "北京"
+       },
+       "country": {
+        "country_code": "CN_1",
+        "name": "中国大陆",
+        "en_name": "Chinese Mainland",
+        "i18n_name": "中国大陆"
+       },
+       "i18n_name": "中国大陆北京市海淀区北三环西路甲18号大钟寺广场2号楼，邮编：100098",
+       "active_status": 1
+      }
+     ],
+     "city_list": null,
+     "correlation_job_list": null,
+     "tag_list": null,
+     "department": null,
+     "job_storefront_mode": null,
+     "storefront_list": null,
+     "target_major_list": null,
+     "schema": null,
+     "job_post_process_time_list": null,
+     "job_level_id_list": null
+    },
+    "tag_list": [
+     {
+      "id": "7220668482463025466",
+      "name": {
+       "name": "急招",
+       "en_name": "Urgent",
+       "i18n_name": "急招"
+      },
+      "order": 1,
+      "style": "{\"backgroundColor\":\"rgba(255, 136, 0, 0.2)\",\"color\":\"rgba(107, 57, 0, 1)\"}",
+      "scope_list": [
+       {
+        "id": "7293066091751934235",
+        "name": {
+         "name": "字节跳动内推",
+         "en_name": "ByteDance Referral",
+         "i18n_name": "字节跳动内推"
+        },
+        "channel_id": "3",
+        "is_top": true
+       },
+       {
+        "id": "7293066091751950619",
+        "name": {
+         "name": "TikTok 内推",
+         "en_name": "TikTok Referral",
+         "i18n_name": "TikTok 内推"
+        },
+        "channel_id": "18",
+        "is_top": true
+       }
+      ],
+      "related_job_num": null
+     }
+    ],
+    "storefront_mode": 1,
+    "storefront_list": null,
+    "process_type": 1
+   }
+  ],
+  [
+   {
+    "id": "7655530707158534405",
+    "title": "豆包AI大模型训练平台产品经理-火山方舟MaaS",
+    "sub_title": null,
+    "description": "团队介绍：火山方舟是火山引擎推出的一站式大模型服务平台，是中国大模型市场产品和份额领跑者；平台提供模型推理、评测、精调等全流程服务；方舟搭载了豆包及业界主流大模型，提供丰富的插件生态和AI应用开发服务，并通过稳定可靠的安全互信方案、专业的算法技术服务，全方位保障企业级AI应用落地。\n\n1、负责大模型训练平台的产品规划与设计，包括训练任务管理、实验管理、模型版本管理、训练监控、评测分析等业务模块；\n2、深入理解大模型训练流程，协同算法、工程和数据团队，梳理从数据处理、模型训练、模型评测到模型发布的全链路需求；\n3、设计训练过程中的关键产品能力，包括任务配置、参数管理、日志追踪、指标看板、异常诊断和实验对比，提升模型研发效率；\n4、围绕GPU/算力资源使用，推动资源调度、排队机制、成本分析和利用率优化，提升训练平台整体运行效率；\n5、持续关注大模型训练、AI Infra、MLOps等方向的发展趋势，结合业务需求推动产品能力迭代和平台化建设。",
+    "requirement": "1、本科及以上学历，计算机、人工智能、软件工程、数据科学、信息管理等相关专业优先；\n2、具备1年以上产品经理经验，有AI平台、机器学习平台、数据平台、云计算平台、MLOps或AI Infra产品经验者优先；\n3、理解机器学习或大模型训练的基本流程，熟悉数据准备、模型训练、模型评测、模型部署等关键环节；\n4、具备较强的系统性产品设计能力，能够将复杂技术流程抽象为清晰的产品模块、交互流程和平台能力；\n5、具备良好的跨团队沟通和项目推进能力，能够与算法、工程、数据和业务团队协作，推动复杂产品落地。\n\n加分项：\n1、有大模型训练平台、模型管理平台、GPU调度平台、数据标注平台或模型评测平台经验；\n2、熟悉PyTorch、Transformers、DeepSpeed、Ray、Kubernetes等训练或调度相关技术框架的基本原理；\n3、有云厂商AI平台、企业级AI Infra、开发者平台或To B技术产品经验；\n4、对大模型行业有持续关注，了解主流开源模型、训练范式和模型评测方法。",
+    "job_category": {
+     "id": "6704215864629004552",
+     "name": "产品",
+     "en_name": "Product",
+     "i18n_name": "产品",
+     "depth": 1,
+     "parent": null,
+     "children": null
+    },
+    "city_info": {
+     "code": "CT_125",
+     "name": "上海",
+     "en_name": "Shanghai",
+     "location_type": null,
+     "i18n_name": "上海",
+     "py_name": null,
+     "mdm_code": null,
+     "node_status": null
+    },
+    "recruit_type": {
+     "id": "101",
+     "name": "正式",
+     "en_name": "Regular",
+     "i18n_name": "正式",
+     "depth": 2,
+     "parent": {
+      "id": "1",
+      "name": "社招",
+      "en_name": "Experienced",
+      "i18n_name": "社招",
+      "depth": 1,
+      "parent": null,
+      "children": null,
+      "active_status": 1,
+      "selectability": 1
+     },
+     "children": null,
+     "active_status": 1,
+     "selectability": 1
+    },
+    "publish_time": 1782442264818,
+    "job_hot_flag": null,
+    "job_subject": null,
+    "code": "A236021B",
+    "department_id": null,
+    "job_function": null,
+    "job_process_id": "6694104661676411150",
+    "recommend_id": null,
+    "city_list": [
+     {
+      "code": "CT_125",
+      "name": "上海",
+      "en_name": "Shanghai",
+      "location_type": null,
+      "i18n_name": "上海",
+      "py_name": null,
+      "mdm_code": null,
+      "node_status": null
+     }
+    ],
+    "job_post_info": {
+     "id": null,
+     "job_id": null,
+     "title": null,
+     "sub_title": null,
+     "address_id": null,
+     "address": "中国大陆上海市杨浦区民府路678号上海新江湾广场T2号楼，邮编：200082",
+     "city": null,
+     "education": null,
+     "experience": null,
+     "description": null,
+     "requirement": null,
+     "min_salary": null,
+     "max_salary": null,
+     "currency": null,
+     "head_count": null,
+     "crator_id": null,
+     "expiry_time": null,
+     "progress": null,
+     "department_id": null,
+     "job_type": null,
+     "recruitment_type": {
+      "id": "101",
+      "name": "正式",
+      "en_name": "Regular",
+      "i18n_name": "正式",
+      "depth": 2,
+      "parent": {
+       "id": "1",
+       "name": "社招",
+       "en_name": "Experienced",
+       "i18n_name": "社招",
+       "depth": 1,
+       "parent": null,
+       "children": null,
+       "active_status": 1,
+       "selectability": 1
+      },
+      "children": null,
+      "active_status": 1,
+      "selectability": 1
+     },
+     "job_process_time": null,
+     "job_in_charge_user_id": null,
+     "biz_create_time": null,
+     "HighlightList": null,
+     "JobChannelPublishList": null,
+     "required_degree": null,
+     "never_expiry": null,
+     "job_hot_flag": null,
+     "subject": null,
+     "sequence": null,
+     "min_level": null,
+     "max_level": null,
+     "job_post_object_value_map": {},
+     "code": null,
+     "job_active_status": null,
+     "job_process_type": null,
+     "biz_modify_time": null,
+     "job_function": null,
+     "job_process": null,
+     "job_process_id": null,
+     "job_category": null,
+     "address_list": [
+      {
+       "id": "2062",
+       "name": "中国大陆上海市杨浦区民府路678号上海新江湾广场T2号楼，邮编：200082",
+       "en_name": "Building T2, Shanghai Xinjiangwan Plaza, No.678 Minfu Road, Yangpu, Shanghai, Shanghai, Chinese Mainland, 200082",
+       "district": {
+        "district_code": "DS_166",
+        "name": "杨浦区",
+        "en_name": "Yangpu",
+        "i18n_name": "杨浦区"
+       },
+       "city": {
+        "city_code": "CT_125",
+        "name": "上海",
+        "en_name": "Shanghai",
+        "i18n_name": "上海",
+        "py_name": "shanghai"
+       },
+       "state": {
+        "state_code": "ST_47",
+        "name": "上海",
+        "en_name": "Shanghai",
+        "i18n_name": "上海"
+       },
+       "country": {
+        "country_code": "CN_1",
+        "name": "中国大陆",
+        "en_name": "Chinese Mainland",
+        "i18n_name": "中国大陆"
+       },
+       "i18n_name": "中国大陆上海市杨浦区民府路678号上海新江湾广场T2号楼，邮编：200082",
+       "active_status": 1
+      }
+     ],
+     "city_list": null,
+     "correlation_job_list": null,
+     "tag_list": null,
+     "department": null,
+     "job_storefront_mode": null,
+     "storefront_list": null,
+     "target_major_list": null,
+     "schema": null,
+     "job_post_process_time_list": null,
+     "job_level_id_list": null
+    },
+    "tag_list": [
+     {
+      "id": "7220668482463025466",
+      "name": {
+       "name": "急招",
+       "en_name": "Urgent",
+       "i18n_name": "急招"
+      },
+      "order": 1,
+      "style": "{\"backgroundColor\":\"rgba(255, 136, 0, 0.2)\",\"color\":\"rgba(107, 57, 0, 1)\"}",
+      "scope_list": [
+       {
+        "id": "7293066091751934235",
+        "name": {
+         "name": "字节跳动内推",
+         "en_name": "ByteDance Referral",
+         "i18n_name": "字节跳动内推"
+        },
+        "channel_id": "3",
+        "is_top": true
+       },
+       {
+        "id": "7293066091751950619",
+        "name": {
+         "name": "TikTok 内推",
+         "en_name": "TikTok Referral",
+         "i18n_name": "TikTok 内推"
+        },
+        "channel_id": "18",
+        "is_top": true
+       }
+      ],
+      "related_job_num": null
+     }
+    ],
+    "storefront_mode": 1,
+    "storefront_list": null,
+    "process_type": 1
+   }
+  ]
+ ]
+}

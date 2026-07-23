@@ -1,0 +1,56 @@
+{
+ "source": "米哈游",
+ "recorded_at": "2026-07-22",
+ "samples": [
+  [
+   {
+    "id": "7846",
+    "title": "行政综合COE实习生",
+    "addressDetailList": [
+     {
+      "addressId": "8",
+      "addressDetail": "上海"
+     }
+    ],
+    "competencyType": "综合类",
+    "jobNature": "实习",
+    "jobNatureId": 3,
+    "projectName": "实习生专项",
+    "hurry": false,
+    "channelDetailIds": [
+     1,
+     2
+    ],
+    "tagList": [],
+    "jobSummary": "",
+    "objectId": "25",
+    "objectName": "2028届（2027.9-2028.8之间毕业）"
+   }
+  ],
+  [
+   {
+    "id": "7912",
+    "title": "数值策划实习生",
+    "addressDetailList": [
+     {
+      "addressId": "8",
+      "addressDetail": "上海"
+     }
+    ],
+    "competencyType": "产品策划类",
+    "jobNature": "实习",
+    "jobNatureId": 3,
+    "projectName": "实习生专项",
+    "hurry": false,
+    "channelDetailIds": [
+     1,
+     2
+    ],
+    "tagList": [],
+    "jobSummary": "从角色成长的每一个曲线，到经济系统的每一次交易，用数据构建游戏世界的底层魅力。",
+    "objectId": "24",
+    "objectName": "2028届及之后毕业的在校生"
+   }
+  ]
+ ]
+}

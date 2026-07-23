@@ -1,0 +1,125 @@
+{
+ "source": "阿里巴巴",
+ "recorded_at": "2026-07-22",
+ "samples": [
+  [
+   {
+    "trackId": "SSP1784762043115XvtgHSWcFZ8386",
+    "positionUrl": null,
+    "bucket": "DEFAULT",
+    "id": 199906800005,
+    "name": "千问Qwen训练Infra前沿技术研究-阿里星",
+    "status": "recruit",
+    "categories": null,
+    "publishTime": null,
+    "graduationTime": {
+     "from": 1793491200000,
+     "to": 1822348800000
+    },
+    "modifyTime": 1784692112000,
+    "workLocations": [
+     "北京",
+     "杭州",
+     "上海"
+    ],
+    "interviewLocations": [
+     "远程"
+    ],
+    "regionEnNameMap": {},
+    "technologyNameIdMap": {},
+    "tags": null,
+    "requirement": "1、来自全球Top高校计算机科学、人工智能、电子工程、体系结构或相关领域应届博士/顶尖硕士毕业生；\n2、在计算机系统、高性能计算（HPC）、分布式系统、GPU架构、深度学习框架底层等领域有扎实的理论基础和工程实践经验，并至少在其中一个方向（如万卡集群训练、算子优化）产生具有行业影响力的创新性成果或落地经验；\n3、在国际顶级计算机系统/体系结构会议或期刊（如OSDI、SOSP、ASPLOS、MLSys、EuroSys、ISCA等）以一作身份发表过论文，或在知名开源AI系统社区（如PyTorch, Megatron, DeepSpeed, vLLM, TensorRT-LLM等）有核心代码贡献，或在ASC、SC等超算竞赛中取得优异成绩；\n3、对突破大模型算力瓶颈有极客热情，具备优秀的系统性架构思维和死磕底层的钻研精神，敢于挑战现有系统范式。能够独立排查并解决复杂的系统/性能疑难杂症，主导或深度参与过千卡/万卡级集群建设或核心推理引擎研发的人选优先；\n4、具备极其扎实的代码功底，精通C++/Python，熟练掌握CUDA/Triton等GPU编程技术；深入理解主流框架及分布式训练框架（如Megatron, DeepSpeed,等）的底层原理与源码；ACM/ICPC、TopCoder等编程比赛获奖者，或有丰富底层性能调优经验者优先；\n5、持续关注AI系统与硬件架构的前沿演进（如新型加速卡、高速互联、下一代并行范式等）。不满足于“调包”或“跟随开源”，有志于从零到一构建或定义下一代大模型的基础设施与系统底座；\n6、具备优秀的跨团队沟通与协作意识，能够与算法研究员、硬件工程师及基础架构团队紧密配合（如软硬协同优化、算法与系统联合设计），推动前沿系统技术快速落地，为千问大模型的迭代与业务爆发提供坚实算力支撑。",
+    "description": "千问Qwen是由Token Foundry自主研发的超大规模语言模型，具备跨语言、跨任务的理解与生成能力。Qwen系列模型，涵盖参数量从几百 M 到T级的基座大语言模型，并相继推出Qwen-VL、Qwen-Audio、Qwen-Omni、Qwen-Coder、Qwen-Image等系列模型。从多轮对话到代码生成，从逻辑推理到内容创作，从单一多模态到全模态统一理解生成，Qwen 正在打造全球领先的全模态模型技术体系，推动AI在企业服务、开发者生态、个人用户等领域的深度应用，引领下一代人工智能的发展。\n\n随着模型参数规模持续增加以及全模态数据的爆发，大模型训练面临着极致的算力、显存与通信瓶颈。千问Qwen Infra团队，致力于突破大模型底层系统与框架的技术天花板，通过极致的工程优化释放硬件算力，为千问系列模型的高效迭代与大规模落地提供坚实的系统基座。团队在多个方向上进行探索（具体如下罗列），若你对以下一个或者多个课题感兴趣均欢迎投递：\n1、超大规模分布式训练系统\n（1）并行策略与通信优化：设计并优化超大规模模型的高效分布式训练架构（如3D/4D/5D并行），突破万卡集群的通信与显存瓶颈。\n（2）训练稳定性与容错机制：构建高可靠的训练容错与诊断系统，实现长稳训练、断点极速恢复与集群故障自动隔离，保障千亿/万亿参数模型的高效迭代。\n2、软硬协同与底层算子优化\n（1）高性能自定义算子研发：深入异构硬件底层，基于CUDA/Triton/TileLang/CuteDSL等开发高性能算子（如FlashAttention），实现计算密集型与访存密集型任务的极致加速。\n（2）软硬协同与架构调优：探索软硬件协同设计，针对特定硬件架构进行指令集与内存层级的深度调优，充分释放新型加速卡的算力潜能。\n3、长上下文与多模态训练系统\n（1）长上下文训练优化：针对超长序列场景，设计高效的注意力机制与显存管理策略，突破长文本训练的算力与显存限制，提升模型长程理解能力。\n（2）多模态训练管线构建：打造支持文本、图像、音视频等异构数据的高效多模态训练系统，优化多模态数据的加载、预处理与混合并行调度。",
+    "experience": null,
+    "degree": null,
+    "department": null,
+    "project": null,
+    "positionType": null,
+    "code": null,
+    "categoryName": "技术类",
+    "categoryType": "freshman",
+    "batchName": "阿里星2027届应届生",
+    "batchId": 100000700001,
+    "batchWillingCount": null,
+    "channels": [
+     "campus_group_official_site",
+     "campus_intranet_site_referral"
+    ],
+    "operations": [],
+    "isTongyi": false,
+    "circle": null,
+    "circleNames": [
+     "Token Foundry"
+    ],
+    "circleCodeList": [
+     "80278"
+    ],
+    "niuKeProjectName": null,
+    "useInternal": null,
+    "isLingYang": null,
+    "tongyi": false
+   },
+   100000700001,
+   "阿里星2027届应届生"
+  ],
+  [
+   {
+    "trackId": "SSP1784762043115aXdDwkMIoy5322",
+    "positionUrl": null,
+    "bucket": "DEFAULT",
+    "id": 199907920008,
+    "name": "大模型推理及后训练关键技术研究-阿里星/A Star",
+    "status": "recruit",
+    "categories": null,
+    "publishTime": null,
+    "graduationTime": {
+     "from": 1793491200000,
+     "to": 1822348800000
+    },
+    "modifyTime": 1784635260000,
+    "workLocations": [
+     "北京",
+     "杭州"
+    ],
+    "interviewLocations": [
+     "远程"
+    ],
+    "regionEnNameMap": {},
+    "technologyNameIdMap": {},
+    "tags": null,
+    "requirement": "1.计算机相关专业博士；\n2.熟悉vLLM、SGLang、TensorRT-LLM等开源推理引擎的架构与实现，深入理解Continuous Batching、PagedAttention、KV Cache管理、PD分离、量化、投机采样等关键技术；\n3.了解大模型微调技术（SFT、LoRA/QLoRA等），熟悉Megatron-LM、FSDP、DeepSpeed等训练框架者优先；\n4.了解多模态大模型架构（视觉理解/视觉生成等），有多模态模型推理优化或微调实践经验者优先；\n5.具备高性能系统开发经验，熟悉GPU编程（CUDA/Triton）与NCCL等通信技术者优先，能够系统性分析推理链路中的性能瓶颈；\n6.良好的学习与自驱能力和跨团队协作能力，积极拥抱AI辅助编程工具提升开发效率。\n\n加分项：\n1.在OSDI/SOSP/ATC/NeurIPS/ICML/ICLR等顶会/顶刊发表过高质量论文；\n2.深度参与或主导贡献过顶级开源项目（vLLM/SGLang/TensorRT-LLM/Megatron-LM等）；\n3.有KV Cache分布式存储、微调模型量化部署等实战经验，或了解RLHF/DPO等模型对齐技术。",
+    "description": "在这里，你将深入大模型推理系统的核心腹地，从推理引擎内核、KV Cache存储体系，到模型微调与部署的全链路打通，打造高性能、低成本的推理与定制化交付引擎。\n\n1.参与大模型推理引擎（vLLM/SGLang等）的深度优化与定制化开发，包括Continuous Batching、PD分离、投机采样、低比特量化等核心机制，持续提升推理吞吐与延迟表现；\n2.负责KV Cache存储与管理体系建设，包括多级缓存架构（HBM/DRAM/SSD）、Prefix Cache复用、迁移/共享/淘汰策略、分布式KV Cache高效传输；\n3.参与多模态大模型的推理与后训练技术建设，包括ViT/DiT等异构结构的推理加速、多模态场景的Cache优化与显存管理、图文/视频数据的微调链路适配；\n4.参与大模型后训练与微调系统建设，包括SFT全参微调与参数高效微调（LoRA/QLoRA等）训练链路、数据流水线与效果评估，打通\"\"微调→压缩→部署→推理\"\"闭环，支持Multi-LoRA推理服务；\n5.基于线上真实负载持续优化推理链路的性能、稳定性与成本效率，在生产环境实现延迟与吞吐的数量级提升。",
+    "experience": null,
+    "degree": null,
+    "department": null,
+    "project": null,
+    "positionType": null,
+    "code": null,
+    "categoryName": "技术类",
+    "categoryType": "freshman",
+    "batchName": "阿里星2027届应届生",
+    "batchId": 100000700001,
+    "batchWillingCount": null,
+    "channels": [
+     "campus_group_official_site",
+     "campus_intranet_site_referral"
+    ],
+    "operations": [],
+    "isTongyi": false,
+    "circle": null,
+    "circleNames": [
+     "阿里云"
+    ],
+    "circleCodeList": [
+     "60002"
+    ],
+    "niuKeProjectName": null,
+    "useInternal": null,
+    "isLingYang": null,
+    "tongyi": false
+   },
+   100000700001,
+   "阿里星2027届应届生"
+  ]
+ ]
+}

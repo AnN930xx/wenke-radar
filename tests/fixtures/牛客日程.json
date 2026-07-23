@@ -1,0 +1,141 @@
+{
+ "source": "牛客日程",
+ "recorded_at": "2026-07-22",
+ "samples": [
+  [
+   {
+    "name": "深圳航天东方红卫星有限公司",
+    "companyId": 22265,
+    "adInfo": null,
+    "cityList": [
+     "北京"
+    ],
+    "wangshenBeginDate": 1784131200000,
+    "wangshenEndDate": 1784822400000,
+    "supplementBeginDate": null,
+    "supplementEndDate": null,
+    "companyEvaluation": "国内卫星通信领域核心央企，技术自主可控，卫星通信服务能力行业领先。",
+    "homeLogo": "https://uploadfiles.nowcoder.com/files/20220702/652858152_1656723955232/sshot-1.png",
+    "followed": false,
+    "supplementHire": false,
+    "unactiveLogo": "",
+    "end": 0,
+    "wangshenTime": null,
+    "cardListTop": false,
+    "companyJobCount": 0,
+    "batch": 1203,
+    "batchName": "27提前批",
+    "wangshenUpdateTime": 1784736000000,
+    "sourceInformation": "http://mp.weixin.qq.com/s/a0d8ufEEVxQwKhu5cgEvwA",
+    "careerNameList": [
+     "后端开发",
+     "前端开发",
+     "客户端开发",
+     "测试",
+     "数据",
+     "运维",
+     "人工智能/算法",
+     "研发工程师",
+     "硬件工程师",
+     "电子/半导体",
+     "通信",
+     "技术支持",
+     "机械",
+     "化工",
+     "电气/自动化",
+     "能源",
+     "交互/设计",
+     "工业类设计"
+    ],
+    "industryList": [],
+    "cardSchoolScheduleInfo": {
+     "status": 1,
+     "content": {
+      "data": [
+       {
+        "text": "27提前批：",
+        "color": "#555759",
+        "fontWeight": "medium",
+        "router": null
+       },
+       {
+        "text": "2天截止",
+        "color": "#FF9F37",
+        "fontWeight": "medium",
+        "router": null
+       }
+      ]
+     },
+     "tag": null
+    },
+    "referralCode": "",
+    "customWangshenLink": "http://mp.weixin.qq.com/s/a0d8ufEEVxQwKhu5cgEvwA",
+    "updateTime": 1784739798000
+   }
+  ],
+  [
+   {
+    "name": "深圳市中图仪器股份有限公司",
+    "companyId": 23994,
+    "adInfo": null,
+    "cityList": [
+     "苏州",
+     "武汉",
+     "深圳",
+     "北京"
+    ],
+    "wangshenBeginDate": 1761235200000,
+    "wangshenEndDate": 1784822400000,
+    "supplementBeginDate": null,
+    "supplementEndDate": null,
+    "companyEvaluation": "专注于精密测量仪器与设备制造，技术积淀深厚，工作内容严谨细致，属于工业基础领域。",
+    "homeLogo": "https://uploadfiles.nowcoder.com/images/20251103/1030032968_1762160108212/6E64D166C7F41F6017B4082E7033DD6D",
+    "followed": false,
+    "supplementHire": false,
+    "unactiveLogo": "",
+    "end": 0,
+    "wangshenTime": null,
+    "cardListTop": false,
+    "companyJobCount": 0,
+    "batch": 1192,
+    "batchName": "26届秋招",
+    "wangshenUpdateTime": 1762012800000,
+    "sourceInformation": "https://mp.weixin.qq.com/s/0jxbSlwixEvG0OnGAHJzRQ",
+    "careerNameList": [
+     "后端开发",
+     "人工智能/算法",
+     "硬件工程师",
+     "电子/半导体",
+     "通信",
+     "技术支持",
+     "机械",
+     "化工"
+    ],
+    "industryList": [],
+    "cardSchoolScheduleInfo": {
+     "status": 1,
+     "content": {
+      "data": [
+       {
+        "text": "26届秋招：",
+        "color": "#555759",
+        "fontWeight": "medium",
+        "router": null
+       },
+       {
+        "text": "2天截止",
+        "color": "#FF9F37",
+        "fontWeight": "medium",
+        "router": null
+       }
+      ]
+     },
+     "tag": null
+    },
+    "referralCode": null,
+    "customWangshenLink": "https://mp.weixin.qq.com/s/0jxbSlwixEvG0OnGAHJzRQ",
+    "updateTime": 1762160111000
+   }
+  ]
+ ]
+}

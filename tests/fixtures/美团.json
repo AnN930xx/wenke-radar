@@ -1,0 +1,108 @@
+{
+ "source": "美团",
+ "recorded_at": "2026-07-22",
+ "samples": [
+  [
+   {
+    "jobUnionId": "4644050791",
+    "name": "骑手体验产品实习生",
+    "projectId": null,
+    "projectName": null,
+    "jobType": "2",
+    "jobSpecialCode": "6",
+    "jobSource": "1",
+    "jobStatus": "000",
+    "jobFamily": "产品类",
+    "jobFamilyGroup": "产品",
+    "cityList": [
+     {
+      "code": null,
+      "name": "北京市",
+      "children": null,
+      "sort": null,
+      "subCode": null,
+      "mapping": null,
+      "outerCode": null,
+      "bgNode": false
+     }
+    ],
+    "workYear": null,
+    "department": [
+     {
+      "code": null,
+      "name": "Keeta",
+      "children": null,
+      "sort": null,
+      "subCode": null,
+      "mapping": null,
+      "outerCode": null,
+      "bgNode": false
+     }
+    ],
+    "desc": null,
+    "departmentIntro": null,
+    "jobDuty": "1. 协助进行骑手体验相关产品的需求调研与分析，收集并整理骑手反馈。  \n2. 参与产品功能的设计与优化，支持原型制作及文档撰写。  \n3. 跟进产品开发流程，协调设计、研发等团队推动项目落地。  \n4. 协助进行数据分析，评估产品功能上线后的效果并提出改进建议。",
+    "jobRequirement": "1. 大学本科及以上学历，专业不限，有产品相关实习经验者优先。  \n2. 具备良好的逻辑思维能力和沟通能力，善于团队协作。  \n3. 熟练使用原型工具或数据分析工具者优先。  \n4. 对用户体验敏感，关注细节，具备较强的责任心和学习能力。",
+    "precedence": null,
+    "highLight": "1. 深入参与本地生活服务核心业务，了解骑手生态与产品全链路。  \n2. 导师一对一指导，快速提升产品思维与实战能力。  \n3. 弹性工作制，团队氛围开放，鼓励创新与主动思考。  \n4. 表现优秀者有机会获得转正机会。",
+    "otherInfo": null,
+    "firstPostTime": null,
+    "refreshTime": 1784727957000,
+    "tag": null,
+    "expiredTime": null,
+    "socialRecommendJob": null
+   }
+  ],
+  [
+   {
+    "jobUnionId": "4645829543",
+    "name": "Keeta-履约策略产品实习生",
+    "projectId": null,
+    "projectName": null,
+    "jobType": "2",
+    "jobSpecialCode": "6",
+    "jobSource": "1",
+    "jobStatus": "000",
+    "jobFamily": "产品类",
+    "jobFamilyGroup": "产品",
+    "cityList": [
+     {
+      "code": null,
+      "name": "北京市",
+      "children": null,
+      "sort": null,
+      "subCode": null,
+      "mapping": null,
+      "outerCode": null,
+      "bgNode": false
+     }
+    ],
+    "workYear": null,
+    "department": [
+     {
+      "code": null,
+      "name": "Keeta",
+      "children": null,
+      "sort": null,
+      "subCode": null,
+      "mapping": null,
+      "outerCode": null,
+      "bgNode": false
+     }
+    ],
+    "desc": null,
+    "departmentIntro": null,
+    "jobDuty": "1. 以配送体验、配送效率为优化目标，分析骑手调度策略存在的问题\n2. 针对问题，形成产品或策略需求，跟进上线、回收效果\n3. 适配多个地区和国家的业务需求",
+    "jobRequirement": "1. 考虑问题全面，从场景出发，具有用户同理心\n2. 岗位涉及较多的分析和定义，需要候选人喜欢并擅长数据分析，知道怎么拆解问题、形成假设、数据验证，对统计原理、sql有基本理解\n3. 耐心细心，做事靠谱，主动思考\n4. 能实习4个月以上",
+    "precedence": null,
+    "highLight": "对有兴趣成为一名策略产品的同学有较大帮助，既有比较落地的项目，也有有挑战的命题",
+    "otherInfo": null,
+    "firstPostTime": null,
+    "refreshTime": 1784727885000,
+    "tag": null,
+    "expiredTime": null,
+    "socialRecommendJob": null
+   }
+  ]
+ ]
+}

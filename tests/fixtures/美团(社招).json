@@ -1,0 +1,108 @@
+{
+ "source": "美团(社招)",
+ "recorded_at": "2026-07-22",
+ "samples": [
+  [
+   {
+    "jobUnionId": "4136574901",
+    "name": "快乐猴-湖州门店店长",
+    "projectId": null,
+    "projectName": null,
+    "jobType": "3",
+    "jobSpecialCode": "5",
+    "jobSource": "1",
+    "jobStatus": "000",
+    "jobFamily": "零售类",
+    "jobFamilyGroup": "门店",
+    "cityList": [
+     {
+      "code": null,
+      "name": "湖州市",
+      "children": null,
+      "sort": null,
+      "subCode": null,
+      "mapping": null,
+      "outerCode": null,
+      "bgNode": false
+     }
+    ],
+    "workYear": null,
+    "department": [
+     {
+      "code": null,
+      "name": "食杂零售-快乐猴事业部",
+      "children": null,
+      "sort": null,
+      "subCode": null,
+      "mapping": null,
+      "outerCode": null,
+      "bgNode": false
+     }
+    ],
+    "desc": "",
+    "departmentIntro": null,
+    "jobDuty": "1、确保公司营运标准高效在门店落地，提升销售与毛利；\n2、理解商圈和用户，据此对门店品类和商品经营方向有清晰的认知，通过品类/商品经营、拉新、营销、门店布局、商品订货、陈列、服务，售后，库存管控等；\n3、管控店内损耗、提升门店人效，优化可控费用（如物料，水电煤等营运费用），达成主要考核KPI；\n4、对内各协同部门的日常高效交互，达成共识，高效执行总部和区域新项目落地；\n5、对外关系的建立维护，如相关政府职能部门（市场管理、消协等）、物业关系，打造协作融洽的合作伙伴。",
+    "jobRequirement": "1、具有传统大型零售运营的思维模式，5年以上工作经验，担任过2年以上传统实体零售门店生鲜副店长及以上级别的管理岗,关注客户价值和客户体验;\n2、诚实正直、品行端正、责任心强、肯吃苦、有激情且执行力强，有商人视角；\n3、勇于承担，乐于分享，指导与培养团队各项能力，能够打造高绩效团队，形成阶梯化人才成长模式；\n4、具备建设组织和体系搭建能力，可以制定并落实各环节的流程。\n5、掌握基本的AI工具，具备数字化运营思维，能快速学习并应用AI辅助工具提升工作效率。",
+    "precedence": null,
+    "highLight": "1、创新型重点项目，从0-1，成长空间广阔，共同推动门店高效营运。\n2、AI数据看板、智能补货预测、数字化稽核系统全面赋能，让你用互联网公司的工具做零售管理。告别凭感觉管店，AI数据告诉你哪里出了问题、该怎么改。",
+    "otherInfo": null,
+    "firstPostTime": null,
+    "refreshTime": 1784761203000,
+    "tag": null,
+    "expiredTime": null,
+    "socialRecommendJob": null
+   }
+  ],
+  [
+   {
+    "jobUnionId": "3527850907",
+    "name": "快乐猴-杭州门店店长",
+    "projectId": null,
+    "projectName": null,
+    "jobType": "3",
+    "jobSpecialCode": "5",
+    "jobSource": "1",
+    "jobStatus": "000",
+    "jobFamily": "零售类",
+    "jobFamilyGroup": "门店",
+    "cityList": [
+     {
+      "code": null,
+      "name": "杭州市",
+      "children": null,
+      "sort": null,
+      "subCode": null,
+      "mapping": null,
+      "outerCode": null,
+      "bgNode": false
+     }
+    ],
+    "workYear": null,
+    "department": [
+     {
+      "code": null,
+      "name": "食杂零售-快乐猴事业部",
+      "children": null,
+      "sort": null,
+      "subCode": null,
+      "mapping": null,
+      "outerCode": null,
+      "bgNode": false
+     }
+    ],
+    "desc": "",
+    "departmentIntro": null,
+    "jobDuty": "1、确保公司营运标准高效在门店落地，提升销售与毛利；\n2、理解商圈和用户，据此对门店品类和商品经营方向有清晰的认知，通过品类/商品经营、拉新、营销、门店布局、商品订货、陈列、服务，售后，库存管控等；\n3、管控店内损耗、提升门店人效，优化可控费用（如物料，水电煤等营运费用），达成主要考核KPI；\n4、对内各协同部门的日常高效交互，达成共识，高效执行总部和区域新项目落地；\n5、对外关系的建立维护，如相关政府职能部门（市场管理、消协等）、物业关系，打造协作融洽的合作伙伴；",
+    "jobRequirement": "1、具有传统大型零售运营的思维模式，5年以上工作经验，担任过2年以上传统实体零售门店生鲜副店长及以上级别的管理岗,关注客户价值和客户体验;\n2、诚实正直、品行端正、责任心强、肯吃苦、有激情且执行力强，有商人视角；\n3、勇于承担，乐于分享，指导与培养团队各项能力，能够打造高绩效团队，形成阶梯化人才成长模式；\n4、具备建设组织和体系搭建能力，可以制定并落实各环节的流程；\n5、掌握基本的AI工具，具备数字化运营思维，能快速学习并应用AI辅助工具提升工作效率。",
+    "precedence": null,
+    "highLight": "1、创新型重点项目，从0-1，成长空间广阔，共同推动门店高效营运\n2、AI数据看板、智能补货预测、数字化稽核系统全面赋能，让你用互联网公司的工具做零售管理。告别凭感觉管店，AI数据告诉你哪里出了问题、该怎么改。",
+    "otherInfo": null,
+    "firstPostTime": null,
+    "refreshTime": 1784761201000,
+    "tag": null,
+    "expiredTime": null,
+    "socialRecommendJob": null
+   }
+  ]
+ ]
+}

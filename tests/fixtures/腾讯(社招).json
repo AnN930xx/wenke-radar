@@ -1,0 +1,52 @@
+{
+ "source": "腾讯(社招)",
+ "recorded_at": "2026-07-22",
+ "samples": [
+  [
+   {
+    "Id": 0,
+    "PostId": "2047313808002809856",
+    "RecruitPostId": 119617,
+    "RecruitPostName": "《使命召唤手游》-活跃运营",
+    "CountryName": "中国",
+    "LocationName": "深圳",
+    "BGName": "IEG",
+    "ComCode": "",
+    "ComName": "",
+    "ProductName": "使命召唤手游-东方版",
+    "CategoryName": "产品",
+    "Responsibility": "1.负责国服活跃运营工作，包括但不限于策略制定、日历规划、活动设计和奖励投放等；\r\n2.分析总结活跃数据和用户反馈，设计和落地相应活跃调控方案；\r\n3.追踪竞品内容和运营表现，总结沉淀行业优秀产品运营经验。",
+    "LastUpdateTime": "2026年07月23日",
+    "PostURL": "http://careers.tencent.com/jobdesc.html?postId=2047313808002809856",
+    "SourceID": 1,
+    "IsCollect": false,
+    "IsValid": true,
+    "RequireWorkYearsName": "一年以上工作经验"
+   },
+   "2047313808002809856"
+  ],
+  [
+   {
+    "Id": 0,
+    "PostId": "2004038701470081024",
+    "RecruitPostId": 116826,
+    "RecruitPostName": "灰境行者-关卡策划",
+    "CountryName": "中国",
+    "LocationName": "上海",
+    "BGName": "IEG",
+    "ComCode": "",
+    "ComName": "",
+    "ProductName": "Maple-端游-国内",
+    "CategoryName": "产品",
+    "Responsibility": "1.根据游戏核心玩法与标志性特色，负责关卡的设计工作，具备创新性与可落地性；\n2.深度拆解优秀FPS产品，建立设计标准与方法论，确保产出的稳定性；\n3.与各部门密切合作，确保设计内容的游戏性与表现性达到极高水准；\n4.跟踪关卡在测试环境中的表现，基于数据反馈与玩家体验进行敏捷迭代。",
+    "LastUpdateTime": "2026年07月23日",
+    "PostURL": "http://careers.tencent.com/jobdesc.html?postId=2004038701470081024",
+    "SourceID": 1,
+    "IsCollect": false,
+    "IsValid": true,
+    "RequireWorkYearsName": "两年以上工作经验"
+   },
+   "2004038701470081024"
+  ]
+ ]
+}

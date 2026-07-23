@@ -1,0 +1,119 @@
+{
+ "source": "淘宝",
+ "recorded_at": "2026-07-22",
+ "samples": [
+  [
+   {
+    "trackId": "SSP1784761970749vsrLoXyNwR7818",
+    "positionUrl": null,
+    "bucket": "DEFAULT",
+    "id": 199902900003,
+    "name": "算法工程师- AIGC方向（T-Star Lab26届秋招）",
+    "status": "recruit",
+    "categories": null,
+    "publishTime": null,
+    "graduationTime": {
+     "from": 1761926400000,
+     "to": 1793376000000
+    },
+    "modifyTime": 1769573911000,
+    "workLocations": [
+     "北京",
+     "杭州"
+    ],
+    "interviewLocations": [
+     "远程"
+    ],
+    "regionEnNameMap": {},
+    "technologyNameIdMap": {},
+    "tags": null,
+    "requirement": "1. 硕士及以上学历，计算机科学、人工智能、电子与通信等相关专业；\n2. 精通Diffusion模型及相关技术，掌握T2V基础模型及相关技术原理，有图像/视频生成或处理相关经验；\n3. 具备卓越的工程实现能力，熟练掌握C/C++、Java、Python等至少一门编程语言；\n4. 熟练掌握深度学习框架，如TensorFlow、PyTorch；\n5. 学习能力强，对新技术有敏锐的洞察力，对AIGC领域充满热情，善于独立思考并持续优化；\n6. 良好的沟通能力和团队协作精神，乐于分享技术见解，善于与团队成员合作。\n\n【加分项】\n1. 具有文本到视频（T2V）、AIGC内容编辑、多模态视频理解等相关领域的实习或项目经验；\n2. 拥有百亿参数级别大模型训练经验，或具备超大规模数据集构建与管理经验；\n3. 在计算机视觉和人工智能领域的国际顶级会议（CVPR, ICCV, ECCV, AAAI, NeurIPS等）或期刊(T-PAMI, T-IP等)发表论文，或在权威学术竞赛中获奖。\n\n面向人群：\n1、毕业时间在 2025年11月-2026年10月的海内外高校硕博毕业生。\n*中国大陆（内地）以毕业证为准，中国港澳台及海外地区以学位证为准\n2、包括但不限于计算机、软件工程、人工智能、网络安全、信息与通信工程、电子科学、自动化、量子计算、数学以及其他前沿交叉学科等相关专业。",
+    "description": "T-Star计划是阿里巴巴淘天集团顶尖人才招聘和培养项目，继承“阿里星〞的使命与愿景，面向全球招募顶尖技术人才。首次开设实习生专项招聘，面向2025年10月后毕业的校优秀技术同学。期待你们在淘天，通过极具挑战的前沿课题与亿级规模的海量数据、应用场景，探索和实践最前沿的Al技术，在有价值的业务场景落地技术成果。\n\n\n如果你，渴望深入探索视频生成技术，开发文本到视频（T2V）基础模型的前沿技术，致力于提升生成视频的画质，真实性，一致性，以及视频生产的效率；\n如果你，热衷于AIGC驱动的视频增强与处理技术，专注于将通用大模型架构优化并迁移到垂直领域，推动下游应用性能的突破；\n如果你，专注于基于AIGC的可控性编辑，探索如何精准实现内容生成与修改，满足多样化的业务需求；\n如果你，对基于AIGC的人脸，人体生成编辑技术充满热情，致力于打造具有高度交互性和真实性的数字形象；\n如果你，期望在多模态视频理解领域取得突破，通过技术创新提升视频内容的理解与分析能力；\n如果你，期望与一群聪明、皮实、乐观、追求卓越的优秀伙伴并肩作战，共同开创音视频技术的新篇章；\n那还在等待什么，赶紧加入我们吧！",
+    "experience": null,
+    "degree": null,
+    "department": null,
+    "project": null,
+    "positionType": null,
+    "code": null,
+    "categoryName": "技术类",
+    "categoryType": "freshman",
+    "batchName": "淘天集团2026届秋季应届生招聘",
+    "batchId": 100000040001,
+    "batchWillingCount": null,
+    "channels": [
+     "campus_group_official_site",
+     "campus_intranet_site_referral"
+    ],
+    "operations": [],
+    "isTongyi": false,
+    "circle": null,
+    "circleNames": [
+     "淘天集团"
+    ],
+    "circleCodeList": [
+     "60001"
+    ],
+    "niuKeProjectName": null,
+    "useInternal": null,
+    "isLingYang": null,
+    "tongyi": false
+   }
+  ],
+  [
+   {
+    "trackId": "SSP1784761970749dmiFjfTJAI8702",
+    "positionUrl": null,
+    "bucket": "DEFAULT",
+    "id": 199902900004,
+    "name": "算法工程师-多模态（T-Star Lab26届秋招）",
+    "status": "recruit",
+    "categories": null,
+    "publishTime": null,
+    "graduationTime": {
+     "from": 1761926400000,
+     "to": 1793376000000
+    },
+    "modifyTime": 1769573909000,
+    "workLocations": [
+     "杭州"
+    ],
+    "interviewLocations": [
+     "远程"
+    ],
+    "regionEnNameMap": {},
+    "technologyNameIdMap": {},
+    "tags": null,
+    "requirement": "【必备项】\n1、硕士及以上学历，计算机、人工智能、电子与通信等相关专业；\n2、熟悉计算机视觉、机器学习、图像/视频分析与处理、多模态内容理解、AIGC等相关领域技术和应用；\n3、具备极佳的工程实现能力，熟练掌握C/C++、Java、Python等至少一门语言；\n4、学习能力强，对新事物有好奇心，对所在领域有热情，善于独立思考并反思总结；\n5、良好的沟通能力和团队协同能力，善于合作，乐于分享。\n\n【加分项】\n1、在校园内或互联网公司有相关实习或项目经历；\n2、在ICCV、CVPR等国际顶级会议、期刊上发表论文，或在相关学术会议组织的权威比赛中获奖。 \n\n【面向人群】\n1、毕业时间在 2025年11月-2026年10月的海内外高校硕博毕业生。\n*中国大陆（内地）以毕业证为准，中国港澳台及海外地区以学位证为准\n2、包括但不限于计算机、软件工程、人工智能、网络安全、信息与通信工程、电子科学、自动化、量子计算、数学以及其他前沿交叉学科等相关专业。",
+    "description": "T-Star计划是阿里巴巴淘天集团顶尖人才招聘和培养项目，继承“阿里星〞的使命与愿景，面向全球招募顶尖技术人才。首次开设实习生专项招聘，面向2025年10月后毕业的校优秀技术同学。期待你们在淘天，通过极具挑战的前沿课题与亿级规模的海量数据、应用场景，探索和实践最前沿的Al技术，在有价值的业务场景落地技术成果。\n\n\n在这里，你可以基于淘天海量商品数据，打造技术先进的电商多模态大模型，提升对多模态异构的商品数据(图、文、视频等)的理解能力和结构化能力，输出底层算法能力和高质量结构化数据，支撑发布、比货、导购等多种电商业务场景，并面向商家和消费者探索AIGC等创新业务应用。工作内容包括模型结构设计、训练任务设计、预训练和下游能力建设等；\n在这里，你将参与跟踪、探索大模型方向/多模态预训练方向的前沿技术，将各方向的SOTA能力集成到模型底座上，提升下游任务的效果，打造团队的技术先进性。\n",
+    "experience": null,
+    "degree": null,
+    "department": null,
+    "project": null,
+    "positionType": null,
+    "code": null,
+    "categoryName": "技术类",
+    "categoryType": "freshman",
+    "batchName": "淘天集团2026届秋季应届生招聘",
+    "batchId": 100000040001,
+    "batchWillingCount": null,
+    "channels": [
+     "campus_group_official_site",
+     "campus_intranet_site_referral"
+    ],
+    "operations": [],
+    "isTongyi": false,
+    "circle": null,
+    "circleNames": [
+     "淘天集团"
+    ],
+    "circleCodeList": [
+     "60001"
+    ],
+    "niuKeProjectName": null,
+    "useInternal": null,
+    "isLingYang": null,
+    "tongyi": false
+   }
+  ]
+ ]
+}

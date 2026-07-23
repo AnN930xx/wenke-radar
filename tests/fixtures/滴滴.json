@@ -1,0 +1,36 @@
+{
+ "source": "滴滴",
+ "recorded_at": "2026-07-22",
+ "samples": [
+  [
+   {
+    "attributeId": 2544,
+    "deptId": 2089265,
+    "hireMode": 2,
+    "id": "274e4a75-4c40-4b6e-8ab1-f2b20af44f8d",
+    "multiLocale": "{\"mainLocale\":\"zh-CN\",\"secondLocale\":\"\"}",
+    "orgId": "didiglobal",
+    "prior": 1,
+    "status": "open",
+    "title": "2027届-校园大使"
+   },
+   "https://campus.didiglobal.com",
+   "didiglobal",
+   96064
+  ],
+  [
+   {
+    "deptId": 439007,
+    "hireMode": 2,
+    "id": "79198be3-6939-48a7-a3ba-e4dcb0dce8d5",
+    "multiLocale": "{\"mainLocale\":\"zh-CN\",\"secondLocale\":\"\"}",
+    "orgId": "didiglobal",
+    "status": "open",
+    "title": "2027未来精英-自动驾驶感知和定位技术挑战"
+   },
+   "https://campus.didiglobal.com",
+   "didiglobal",
+   96064
+  ]
+ ]
+}
