@@ -10,7 +10,7 @@ import os
 from datetime import datetime, date
 from typing import List
 from domain.models import JobItem
-from filters import filter_jobs, campus_year_bucket
+from filters import filter_jobs, campus_year_bucket, campus_focus_years
 from scoring import score_job, STAR_THRESHOLD
 import config
 
@@ -58,7 +58,7 @@ def _render_section(lines, section_title, note, jobs_subset, raw_counts_subset,
                     sort_key, all_daily_only=False, year_split=False):
     """渲染一个招聘大区（校招 或 社招）：总览表 + 今日新增 + 当前在招。
     all_daily_only=True（社招区专用）：整区都不铺存量，只报今日新增 + 一行计数，
-    社招存量过大，只关心每日更新。"""
+    因为家人已毕业、社招存量过大只关心每日更新（见项目目标）。"""
     new_jobs = [j for j in jobs_subset if getattr(j, "_is_new", False)]
     existing_jobs = [j for j in jobs_subset if not getattr(j, "_is_new", False)]
     companies = sorted(raw_counts_subset.keys(), key=sort_key)
@@ -89,8 +89,8 @@ def _render_section(lines, section_title, note, jobs_subset, raw_counts_subset,
         lines.append("今日暂无新增岗位。有新岗位放出时，次日简报会自动列在这里。")
         lines.append("")
     elif year_split:
-        # 校招：按届别拆块（顺序来自 config.CAMPUS_FOCUS_YEARS：重点届/关注届/不限·其他）
-        focus_years = getattr(config, "CAMPUS_FOCUS_YEARS", ["2026", "2027"])
+        # 校招：按届别拆块（顺序来自画像：重点届在前，未配置则每个目标届别一块）
+        focus_years = campus_focus_years()
         bucket_keys = list(focus_years) + ["不限·其他"]
         buckets = {k: [] for k in bucket_keys}
         for j in new_jobs:
@@ -212,7 +212,7 @@ def generate_brief(jobs: List[JobItem], new_keys: set, all_raw_count: dict,
         _render_section(
             lines, "💼 社招入门岗",
             f"社招入门级岗位（已排除资深/多年经验岗）｜方向：{focus_str}｜"
-            f"**只报今日新增**（只报每日新增，存量不铺）",
+            f"**只报今日新增**（家人已毕业，存量太多不铺，每天看新岗即可）",
             social_jobs, social_counts, _sort_key, all_daily_only=True)
 
     lines.append("---")
@@ -245,7 +245,7 @@ def generate_push_brief(jobs: List[JobItem], new_keys: set):
 
     lines = []
 
-    focus_years = getattr(config, "CAMPUS_FOCUS_YEARS", ["2026", "2027"])
+    focus_years = campus_focus_years()
 
     def _render_block(header, jobs_list, with_year=False):
         if not jobs_list:

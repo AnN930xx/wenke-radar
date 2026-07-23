@@ -3,6 +3,9 @@
 覆盖：届别解析、届别分桶、经验年限判定（含"1-3年取下限"回归坑）、
 校招/社招两条过滤链、城市/实习/资深/技术岗排除。
 """
+import pytest
+
+import config
 from domain.models import JobItem
 from filters import parse_recruit_year, campus_year_bucket, filter_jobs
 from scrapers.base import demands_senior_experience
@@ -96,6 +99,39 @@ class TestFilterCampus:
         # 没写地点/全国岗保留（宁多勿漏）
         assert filter_jobs([job("产品经理", location="")])
         assert filter_jobs([job("产品经理", location="全国")])
+
+
+class TestYearPortability:
+    """通用性保证：用户任意改届别窗口，系统即刻适配、不崩不漏（开源核心承诺）"""
+
+    def test_switch_to_older_years(self, monkeypatch):
+        # 用户想看 2023/2024 届 → 改一个列表就生效
+        monkeypatch.setattr(config, "TARGET_GRAD_YEARS", [2023, 2024])
+        monkeypatch.setattr(config, "CAMPUS_FOCUS_YEARS", None)
+        assert filter_jobs([job("2024届产品经理专场")])          # 原被排除，现在保留
+        assert not filter_jobs([job("产品经理（2026届）")])       # 原保留，现在排除
+        assert campus_year_bucket(job("2023届运营管培生")) == "2023"
+
+    def test_future_years_work(self, monkeypatch):
+        # 未来年代（两位数写法 "31届"）也能识别，不锁定 202X
+        monkeypatch.setattr(config, "TARGET_GRAD_YEARS", [2030, 2031])
+        monkeypatch.setattr(config, "CAMPUS_FOCUS_YEARS", None)
+        assert parse_recruit_year("2031届秋季校园招聘") == "2031"
+        assert parse_recruit_year("31届管培生") == "2031"
+        assert filter_jobs([job("2031届产品培训生")])
+
+    def test_focus_years_default_derivation(self, monkeypatch):
+        # 未配置 CAMPUS_FOCUS_YEARS → 自动取全部目标届别，无需手动同步
+        monkeypatch.setattr(config, "TARGET_GRAD_YEARS", [2027, 2028])
+        monkeypatch.setattr(config, "CAMPUS_FOCUS_YEARS", None)
+        from filters import campus_focus_years
+        assert campus_focus_years() == ["2027", "2028"]
+
+    def test_invalid_year_fails_loudly(self, monkeypatch):
+        # 配错年份 → 第一次过滤即给人话报错，而不是静默漏岗
+        monkeypatch.setattr(config, "TARGET_GRAD_YEARS", ["2026届"])
+        with pytest.raises(ValueError, match="TARGET_GRAD_YEARS"):
+            filter_jobs([job("产品经理（2026届）")])
 
 
 class TestFilterSocial:

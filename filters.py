@@ -20,8 +20,10 @@ from domain.enrich import enrich, demands_senior_experience
 import config
 
 
-# ==================== 届别 token 推导（画像驱动）====================
-# 从 config.TARGET_GRAD_YEARS 自动生成保留/排除 token，不再手写年份枚举（每年零维护）。
+# ==================== 届别 token 推导（画像驱动，任意年份可用）====================
+# 从 config.TARGET_GRAD_YEARS 自动生成保留/排除 token——用户改任何年份组合（[2024]、
+# [2027,2028]、跨十年都行）系统即刻适配，无需改代码。规则每次按 config 现值计算并缓存，
+# 运行期改 config（含测试 monkeypatch）自动生效；非法配置在第一次过滤时给出人话报错。
 
 def _year_tokens(year: int) -> List[str]:
     """一个届别年份的各种常见写法：2026 / 2026届 / 26届 / 26秋 / 26春 / 26校 / 2026春 / 2026秋"""
@@ -30,31 +32,56 @@ def _year_tokens(year: int) -> List[str]:
             f"{two}秋", f"{two}春", f"{two}校", f"{full}春", f"{full}秋"]
 
 
-_TARGET_YEARS = getattr(config, "TARGET_GRAD_YEARS", [2025, 2026, 2027])
-YEAR_KEEP_TOKENS = [t for y in _TARGET_YEARS for t in _year_tokens(y)]
-# 排除窗口：2019~2031 里不在目标届别的年份（更早=往届不再招，更晚=还轮不到）
-YEAR_REJECT_TOKENS = [t for y in range(2019, 2032)
-                      if y not in _TARGET_YEARS for t in _year_tokens(y)]
+_year_rule_cache = {}
+
+
+def year_rules():
+    """返回 (保留token, 排除token)。排除窗口=目标届别前后各约6年里的非目标年份
+    （更早=往届不再招，更晚=还轮不到），随目标届别移动，不存在写死的年份区间。"""
+    targets = tuple(getattr(config, "TARGET_GRAD_YEARS", []) or ())
+    for y in targets:
+        if not isinstance(y, int) or not 2000 <= y <= 2099:
+            raise ValueError(
+                f"config.TARGET_GRAD_YEARS 含非法年份 {y!r}——"
+                f"请填 2000~2099 的整数列表，如 [2025, 2026, 2027]")
+    if _year_rule_cache.get("targets") != targets:
+        keep = [t for y in targets for t in _year_tokens(y)]
+        lo, hi = (min(targets), max(targets)) if targets else (0, 0)
+        reject = [t for y in range(max(lo - 6, 2000), min(hi + 7, 2100))
+                  if y not in targets for t in _year_tokens(y)]
+        _year_rule_cache.update(targets=targets, keep=keep, reject=reject)
+    return _year_rule_cache["keep"], _year_rule_cache["reject"]
+
+
+def campus_focus_years() -> List[str]:
+    """日报分块用的重点届别列表。未显式配置 CAMPUS_FOCUS_YEARS 时，
+    自动取全部目标届别（每届一个分块）——改 TARGET_GRAD_YEARS 不用同步改这里。"""
+    configured = getattr(config, "CAMPUS_FOCUS_YEARS", None)
+    if configured:
+        return [str(y) for y in configured]
+    return [str(y) for y in getattr(config, "TARGET_GRAD_YEARS", [])]
 
 
 # ==================== 届别解析 ====================
 def parse_recruit_year(text: str) -> str:
     """从标题/标签解析届别，如 "2026"、"2026/2027"；没写年份返回 "不限"。
-    识别 "2026届/2026" "26届" "26秋/26春/26校" 等写法；(?<!\\d) 防止薪资等数字误匹配。
+    识别 "2026届/2026" "26届" "26秋/26春/26校" 等写法，覆盖 20xx 全部年份
+    （不锁定某个年代，用户任意配置届别窗口都能识别）；(?<!\\d)(?!\\d) 防薪资等长数字误匹配。
     """
     years = set()
-    for m in re.finditer(r"(?<!\d)20(2\d)(?!\d)", text or ""):
-        years.add("20" + m.group(1))
-    for m in re.finditer(r"(?<!\d)(2\d)\s*(?:届|秋|春|校)", text or ""):
+    for m in re.finditer(r"(?<!\d)(20\d{2})(?!\d)", text or ""):
+        years.add(m.group(1))
+    # 两位数写法限定 1x~4x（"26届/30届"），避开"第5届/第100届"这类序数词
+    for m in re.finditer(r"(?<!\d)([1-4]\d)\s*(?:届|秋|春|校)", text or ""):
         years.add("20" + m.group(1))
     return "/".join(sorted(years)) if years else "不限"
 
 
 def campus_year_bucket(job) -> str:
-    """把校招岗分到届别桶（桶顺序来自 config.CAMPUS_FOCUS_YEARS，第一个为重点届）。
+    """把校招岗分到届别桶（桶顺序来自 campus_focus_years()，第一个为重点届）。
     双届岗（如2026/2027）归入排在前面的重点桶；不含任何关注届别 → 不限·其他（滚动岗等）。"""
     y = parse_recruit_year(f"{job.title} {job.tags} {job.category}")
-    for focus in getattr(config, "CAMPUS_FOCUS_YEARS", ["2026", "2027"]):
+    for focus in campus_focus_years():
         if focus in y:
             return focus
     return "不限·其他"
@@ -66,16 +93,17 @@ def _match_year(job: JobItem) -> bool:
     token 由 TARGET_GRAD_YEARS 自动推导（见文件顶部），每年只需改 config 里的年份列表。"""
     if not getattr(config, "ONLY_TARGET_YEAR", False):
         return True
+    keep_tokens, reject_tokens = year_rules()
     text = f"{job.title} {job.category} {job.tags}"
-    if any(kw in text for kw in YEAR_KEEP_TOKENS):
+    if any(kw in text for kw in keep_tokens):
         return True
-    if any(kw in text for kw in YEAR_REJECT_TOKENS):
+    if any(kw in text for kw in reject_tokens):
         return False
     return True  # 未提年份=滚动招聘，可投，保留
 
 
 def _match_not_intern(job: JobItem) -> bool:
-    """排除实习岗（目标用户只投可直接入职的正式岗）。"""
+    """排除实习岗（家人已毕业，只留校招正式/社招岗）。"""
     if not getattr(config, "EXCLUDE_INTERN", False):
         return True
     text = f"{job.title} {job.tags} {job.category}".lower()
