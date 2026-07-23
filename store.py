@@ -7,9 +7,11 @@ source_id 恒等于其 company 名，故行为与旧版逐字节一致，但语�
   jobs          当前在招岗位（主表；下线岗自动归档，不留垃圾）
     - source_id / source_kind  来源身份与可信等级（OFFICIAL_* / AGGREGATOR_DISCOVERY）
     - recruit_type / recruit_year / category  分类列
-    - canonical_job_id  跨源去重预留（暂空）
+    - canonical_job_id  跨源去重身份（雇主::平台job_id，见 domain/canonical.py）：
+      新来源出现"其它来源已收录的同岗孪生"时照常入库、但不计新增（防隔日重复推送），
+      事件流记 DUPLICATE
   jobs_archive  已下线岗位归档（结构同 jobs + archived_at）
-  job_events    岗位生命周期事件流（CREATED/BOOTSTRAP/REOPENED/UPDATED/CLOSED）
+  job_events    岗位生命周期事件流（CREATED/BOOTSTRAP/REOPENED/UPDATED/CLOSED/DUPLICATE）
   source_health 每轮每源的抓取健康度（成功/完整性/耗时/可信等级）
   v_job_summary 汇总视图：公司 × 招聘类型 × 届别
 """
@@ -20,6 +22,7 @@ from typing import List, Set
 from domain.models import JobItem
 from domain.enrich import enrich              # 落库前抽取结构化字段（经验年限），供指纹与展示
 from domain.recruitment import parse_recruit_year  # 届别解析（纯领域逻辑，store 不再依赖 filters）
+from domain.canonical import canonical_of     # 跨源去重身份（老库回填迁移用）
 import config
 
 DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "jobs.db")
@@ -58,10 +61,11 @@ def _get_conn():
     """)
     _migrate_columns(conn)
     conn.execute("CREATE INDEX IF NOT EXISTS idx_jobs_source ON jobs(source_id)")
+    conn.execute("CREATE INDEX IF NOT EXISTS idx_jobs_canonical ON jobs(canonical_job_id)")
     conn.execute("""
         CREATE TABLE IF NOT EXISTS job_events (
             event_at TEXT, source_id TEXT, company TEXT, job_id TEXT,
-            event TEXT,   -- CREATED / BOOTSTRAP / REOPENED / UPDATED / CLOSED
+            event TEXT,   -- CREATED / BOOTSTRAP / REOPENED / UPDATED / CLOSED / DUPLICATE
             title TEXT
         )
     """)
@@ -105,6 +109,13 @@ def _migrate_columns(conn):
                     f"SELECT DISTINCT source_id FROM {table}").fetchall():
                 conn.execute(f"UPDATE {table} SET source_kind=? WHERE source_id=?",
                              (config.source_kind(sid), sid))
+        # canonical_job_id 回填（老库为空串；幂等，回填过一次后命中 0 行）
+        for sid, jid in conn.execute(
+                f"SELECT source_id, job_id FROM {table} "
+                f"WHERE canonical_job_id IS NULL OR canonical_job_id=''").fetchall():
+            conn.execute(
+                f"UPDATE {table} SET canonical_job_id=? WHERE source_id=? AND job_id=?",
+                (canonical_of(sid, jid), sid, jid))
     # job_events / source_health 补列（旧库缺则加）
     ev_cols = {r[1] for r in conn.execute("PRAGMA table_info(job_events)").fetchall()}
     if ev_cols and "source_id" not in ev_cols:
@@ -129,13 +140,16 @@ def save_jobs(jobs: List[JobItem], suspect_sources: Set[str] = None) -> Set[str]
       - suspect_sources：main 按 FetchResult 完整性对账判定"疑似没抓全"的来源，本次跳过下线判定；
       - 来源级 bootstrap：库里（含归档）从未见过的来源且首抓 >= BOOTSTRAP_MIN_JOBS 岗 → 静默入库不计新增；
       - 归档状态机：缺失岗位先 PENDING_CLOSED，连续缺失 CLOSE_AFTER_MISSES 次才 CLOSED（替代旧的骤降阈值）；
-      - 本次抓到 0 岗不推进状态；no_archive 源（猎聘系）永不归档。
+      - 本次抓到 0 岗不推进状态；no_archive 源（猎聘系）永不归档；
+      - 跨源去重：新行的 canonical_job_id 已被其它来源收录（校招/社招双 feed 孪生）→
+        入库但不计新增、事件记 DUPLICATE（同轮的另一份由渲染层 dedupe_cross_source 折叠）。
     """
     suspect_sources = suspect_sources or set()
     conn = _get_conn()
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     new_keys = set()
     current_ids = {}       # source_id -> set(job_id)
+    dup_by_source = {}     # source_id -> 跨源孪生抑制数（打日志用）
 
     # 来源级 bootstrap：主表+归档都没见过的 source_id = 新接入的来源
     known = {r[0] for r in conn.execute(
@@ -171,12 +185,21 @@ def save_jobs(jobs: List[JobItem], suspect_sources: Set[str] = None) -> Set[str]
             if job.source_id in bootstrap_sources:
                 log_event(job.source_id, job.company, job.job_id, "BOOTSTRAP", job.title)
             else:
-                new_keys.add(job.dedup_key)
-                was_archived = conn.execute(
-                    "SELECT 1 FROM jobs_archive WHERE source_id=? AND job_id=?",
-                    (job.source_id, job.job_id)).fetchone()
-                log_event(job.source_id, job.company, job.job_id,
-                          "REOPENED" if was_archived else "CREATED", job.title)
+                # 跨源去重：其它来源已收录同一 canonical（同雇主同平台 job_id 的孪生，
+                # 如校招/社招双 feed 同岗）→ 照常入库但不计新增，防重复推送
+                twin = conn.execute(
+                    "SELECT 1 FROM jobs WHERE canonical_job_id=? AND source_id<>? LIMIT 1",
+                    (job.canonical_job_id, job.source_id)).fetchone()
+                if twin:
+                    log_event(job.source_id, job.company, job.job_id, "DUPLICATE", job.title)
+                    dup_by_source[job.source_id] = dup_by_source.get(job.source_id, 0) + 1
+                else:
+                    new_keys.add(job.dedup_key)
+                    was_archived = conn.execute(
+                        "SELECT 1 FROM jobs_archive WHERE source_id=? AND job_id=?",
+                        (job.source_id, job.job_id)).fetchone()
+                    log_event(job.source_id, job.company, job.job_id,
+                              "REOPENED" if was_archived else "CREATED", job.title)
         else:
             # 内容指纹变化=真 UPDATED（含 JD/要求变化）。老库迁移后指纹为 NULL：
             # 首见时静默采纳、不报 UPDATED，只有后续真变化才记事件（避免迁移 UPDATED 洪水）。
@@ -191,6 +214,10 @@ def save_jobs(jobs: List[JobItem], suspect_sources: Set[str] = None) -> Set[str]
                 (job.title, job.category, job.location, job.url, job.publish_time,
                  job.tags, job.recruit_type, _job_year(job), job.source_kind,
                  fp, job.experience_min_years, now, job.source_id, job.job_id))
+
+    for s in sorted(dup_by_source):
+        print(f"  🔗 [{s}] {dup_by_source[s]} 个岗位是其它来源已收录岗位的孪生"
+              f"（跨源去重：入库不计新增）")
 
     # 归档状态机（仅处理本次抓到岗位的来源）：完整运行里缺失的岗位先挂起(PENDING_CLOSED)，
     # 连续缺失达 CLOSE_AFTER_MISSES 次才归档(CLOSED)。抓到的岗位上面已把 missing_streak 清零。

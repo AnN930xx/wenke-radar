@@ -22,8 +22,9 @@ class TestSourceIdentityDefaults:
         j = JobItem(company="腾讯", job_id="1", title="x", source_id="tencent_campus")
         assert j.dedup_key == "tencent_campus::1"
 
-    def test_canonical_reserved_empty(self):
-        assert JobItem(company="A", job_id="1", title="x").canonical_job_id == ""
+    def test_canonical_auto_derived(self):
+        """canonical_job_id 自动派生为 雇主::job_id（跨源去重身份，详见 test_canonical.py）"""
+        assert JobItem(company="A", job_id="1", title="x").canonical_job_id == "A::1"
 
 
 class TestSourceKind:

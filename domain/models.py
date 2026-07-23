@@ -9,13 +9,16 @@
                 未来同一雇主的多来源（校招官网/社招官网/ATS/聚合）可给不同 source_id。
   source_kind   来源可信等级：OFFICIAL_CAREERS / OFFICIAL_ATS / AGGREGATOR_DISCOVERY。
                 官方源可为"岗位关闭/更新时间/真实性"背书；聚合发现源只作线索，不 authoritative。
-  canonical_job_id  跨源去重预留：同一岗位在多来源出现时指向同一"真实岗位"（暂未启用）。
+  canonical_job_id  跨源去重：同一岗位在多来源出现时指向同一"真实岗位"。
+                派生规则 = 雇主::平台job_id（见 domain/canonical.py），同雇主校招/社招
+                双 feed 暴露同一 requisition 时二者 canonical 相同，据此抑制重复推送。
 """
 import hashlib
 from dataclasses import dataclass, field
 from datetime import datetime
 
 import config
+from domain.canonical import canonical_of
 
 
 @dataclass
@@ -38,7 +41,7 @@ class JobItem:
     experience_min_years: int = None  # enrich 解析出的最低经验年限（未提及=None；不落库）
     source_id: str = ""         # 来源身份（空则 __post_init__ 取 company）
     source_kind: str = ""       # 来源可信等级（空则 __post_init__ 按 source_id 推断）
-    canonical_job_id: str = ""  # 跨源去重预留（暂未启用）
+    canonical_job_id: str = ""  # 跨源去重身份（空则 __post_init__ 派生 雇主::job_id）
     fetched_at: str = field(default_factory=lambda: datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
     def __post_init__(self):
@@ -48,6 +51,8 @@ class JobItem:
             self.source_id = self.company
         if not self.source_kind:
             self.source_kind = config.source_kind(self.source_id)
+        if not self.canonical_job_id:
+            self.canonical_job_id = canonical_of(self.source_id, self.job_id)
 
     @property
     def dedup_key(self) -> str:

@@ -10,6 +10,7 @@ import os
 from datetime import datetime, date
 from typing import List
 from domain.models import JobItem
+from domain.canonical import dedupe_cross_source
 from filters import filter_jobs, campus_year_bucket, campus_focus_years
 from scoring import score_job, STAR_THRESHOLD
 import config
@@ -158,8 +159,9 @@ def generate_brief(jobs: List[JobItem], new_keys: set, all_raw_count: dict,
     today = date.today().isoformat()
     now = datetime.now().strftime("%Y-%m-%d %H:%M")
 
-    # 过滤出目标岗位
+    # 过滤出目标岗位；同轮跨源孪生（校招/社招双 feed 同岗）折叠为一条
     target_jobs = filter_jobs(jobs)
+    target_jobs, new_keys = dedupe_cross_source(target_jobs, new_keys)
     # 标记新增（校招/社招各自的新增在 _render_section 里按子集计算）
     for j in target_jobs:
         j._is_new = j.dedup_key in new_keys
@@ -236,6 +238,7 @@ def generate_push_brief(jobs: List[JobItem], new_keys: set):
     返回 (正文, 新增对口岗位数) —— 数量供 main.py 定推送标题。
     """
     target_jobs = filter_jobs(jobs)
+    target_jobs, new_keys = dedupe_cross_source(target_jobs, new_keys)
     new_jobs = [j for j in target_jobs if j.dedup_key in new_keys]
     if not new_jobs:
         return ("今日各源均无新增对口岗位。系统运行正常，有新岗放出会在次日推送。", 0)

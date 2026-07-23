@@ -13,6 +13,7 @@
 config.py   纯配置数据（画像/源开关/守卫阈值/各公司参数），无逻辑
    ↓
 domain/     领域层：models.JobItem(数据契约) + classify(类别推断) + enrich(JD解析) + results.FetchResult
+            + canonical(跨源去重：canonical_job_id=雇主::平台job_id，校招/社招双feed同岗只推一次)
    ↓
 scrapers/   抓取层：只负责"从网站拿到 List[JobItem]"，不过滤不碰DB不渲染；
             分页循环设 self.reported_total（完整性对账）；有本地过滤的源另设 self.raw_fetched
