@@ -76,9 +76,12 @@ class TestSuspectSkipsArchive:
         monkeypatch.setattr(store, "DB_PATH", str(tmp_path / "t.db"))
         jobs12 = [JobItem(company="A", job_id=f"j{i}", title=f"岗{i}") for i in range(12)]
         store.save_jobs(jobs12)
-        # 疑似不完整：只抓到 4 个 + 被标 suspect → 不归档（库存不动）
+        # 疑似不完整：只抓到 4 个 + 被标 suspect → 跳过下线判定（不挂起、不归档）
         store.save_jobs(jobs12[:4], suspect_sources={"A"})
         assert store.get_all_jobs_count() == 12
-        # 下次抓全了 → 正常归档恢复
+        # 下次抓全了（完整运行）：j8~j11 首次缺失挂起 → 主表仍 12
+        store.save_jobs(jobs12[:8])
+        assert store.get_all_jobs_count() == 12
+        # 再一次完整运行仍缺失 → 确认下线归档 → 8
         store.save_jobs(jobs12[:8])
         assert store.get_all_jobs_count() == 8

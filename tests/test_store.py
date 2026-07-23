@@ -52,36 +52,46 @@ class TestArchiveAndGuards:
         """建一个已知公司的库存（第一次 save 会走 bootstrap，属正常路径）"""
         store.save_jobs(mk(company, n))
 
-    def test_normal_archive(self):
+    def test_archive_needs_two_consecutive_misses(self):
+        # 状态机：缺失第一次只挂起(留在主表)，连续第二次才归档
         self._seed("A", 12)
-        store.save_jobs(mk("A", 8))            # 归档 4/12 = 33% < 50%
+        store.save_jobs(mk("A", 8))            # j8~j11 首次缺失 → PENDING，主表仍 12
+        assert store.get_all_jobs_count() == 12
+        store.save_jobs(mk("A", 8))            # 连续第二次缺失 → CLOSED，主表 8
         assert store.get_all_jobs_count() == 8
 
-    def test_plunge_skips_archive(self):
+    def test_reappear_clears_pending(self):
+        # 挂起的岗位下次抓到即恢复，不会被误归档（这正是替代 50% 阈值的意义）
         self._seed("A", 12)
-        new = store.save_jobs(mk("A", 3))      # 只匹配到 3/12 → 要归档 75% → 拦截
+        store.save_jobs(mk("A", 8))            # j8~j11 挂起
+        store.save_jobs(mk("A", 12))          # 全部又抓到 → 清除挂起
         assert store.get_all_jobs_count() == 12
-        assert new == set()
+        store.save_jobs(mk("A", 8))           # 再次缺失 → 只是重新挂起(streak 归零后=1)，未归档
+        assert store.get_all_jobs_count() == 12
 
-    def test_small_stock_exempt_from_guard(self):
-        # 库存 < ARCHIVE_GUARD_MIN_EXISTING 的小源不受骤降守卫限制（2→1 属正常）
-        self._seed("小司", 2)
-        store.save_jobs(mk("小司", 1))
-        assert store.get_all_jobs_count() == 1
-
-    def test_zero_fetch_no_archive(self):
+    def test_large_dropout_not_stuck(self):
+        # 真实大规模缩招：旧 50% 阈值会永久卡住；状态机两次确认后正常归档
         self._seed("A", 12)
-        store.save_jobs([])                    # 全体 0 岗（源失败）→ 不归档
+        store.save_jobs(mk("A", 2))           # 掉到 2（>50% 缺失）→ 10 个挂起
+        assert store.get_all_jobs_count() == 12
+        store.save_jobs(mk("A", 2))           # 连续第二次 → 10 个归档
+        assert store.get_all_jobs_count() == 2
+
+    def test_zero_fetch_no_state_change(self):
+        self._seed("A", 12)
+        store.save_jobs([])                    # 全体 0 岗（源失败）→ 不推进状态
         assert store.get_all_jobs_count() == 12
 
     def test_no_archive_flag(self, monkeypatch):
         monkeypatch.setitem(config.COMPANY_CONFIG, "抖动源", {"no_archive": True})
         self._seed("抖动源", 6)
-        store.save_jobs(mk("抖动源", 2))       # 反爬只返回子集 → 不归档
+        store.save_jobs(mk("抖动源", 2))       # 反爬只返回子集 → 永不归档
+        store.save_jobs(mk("抖动源", 2))       # 连续缺失也不归档
         assert store.get_all_jobs_count() == 6
 
     def test_reopened_job_after_archive_is_new(self):
         self._seed("A", 12)
-        store.save_jobs(mk("A", 8))                       # j8~j11 被归档
+        store.save_jobs(mk("A", 8))                       # 挂起
+        store.save_jobs(mk("A", 8))                       # j8~j11 归档
         new = store.save_jobs(mk("A", 12))                # 归档的 4 个重新出现
         assert new == {f"A::j{i}" for i in (8, 9, 10, 11)}

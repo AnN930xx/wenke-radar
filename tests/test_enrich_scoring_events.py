@@ -97,7 +97,10 @@ class TestJobEvents:
         store.save_jobs(mk("A", 2))                       # 小批量 → CREATED×2
         assert [e[2] for e in events()] == ["CREATED", "CREATED"]
 
-        store.save_jobs(mk("A", 1))                       # j1 下线 → CLOSED
+        store.save_jobs(mk("A", 1))                       # j1 首次缺失 → PENDING_CLOSED
+        assert events()[-1] == ("A", "j1", "PENDING_CLOSED")
+
+        store.save_jobs(mk("A", 1))                       # j1 连续缺失 → CLOSED
         assert events()[-1] == ("A", "j1", "CLOSED")
 
         store.save_jobs(mk("A", 2))                       # j1 重新出现 → REOPENED
