@@ -9,7 +9,7 @@ import config
 class MihoyoScraper(BaseScraper):
     name = "米哈游"
 
-    def fetch(self):
+    def _fetch_items(self):
         url = "https://ats.openout.mihoyo.com/ats-portal/v1/job/list"
         headers = {
             "Content-Type": "application/json",

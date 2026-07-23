@@ -12,7 +12,7 @@ HOST = "https://talent.baidu.com"
 class BaiduScraper(BaseScraper):
     name = "百度"
 
-    def fetch(self):
+    def _fetch_items(self):
         # 先访问列表页拿 Cookie（否则接口返回 no-auth）
         self.session.get(f"{HOST}/jobs/list",
                          headers={"Referer": HOST}, timeout=config.REQUEST_TIMEOUT)

@@ -17,7 +17,7 @@ class JdScraper(BaseScraper):
     }
     MAX_PAGES = 21
 
-    def fetch(self):
+    def _fetch_items(self):
         recruit_batch = config.COMPANY_CONFIG["京东"]["type"]
         raw = []
         for page in range(self.MAX_PAGES):

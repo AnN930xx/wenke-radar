@@ -18,7 +18,7 @@ class OfferstarScraper(BaseScraper):
     SEARCH_URL = "https://www.offerstar.cn/recruitment"
     DIRECTIONS = ["产品", "运营"]
 
-    def fetch(self):
+    def _fetch_items(self):
         cfg = config.COMPANY_CONFIG["offerstar"]
         collected, seen = [], set()
         for direction in self.DIRECTIONS:

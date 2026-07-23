@@ -13,7 +13,7 @@ import config
 class TencentScraper(BaseScraper):
     name = "腾讯"
 
-    def fetch(self):
+    def _fetch_items(self):
         url = "https://join.qq.com/api/v1/position/searchPosition"
         headers = {
             "Content-Type": "application/json",
@@ -67,7 +67,7 @@ class TencentSocialScraper(BaseScraper):
     """腾讯社招（careers.tencent.com 公开接口，按父类目过滤方向）"""
     name = "腾讯(社招)"
 
-    def fetch(self):
+    def _fetch_items(self):
         cfg = config.COMPANY_CONFIG.get(self.name, {})
         # 40003=产品 40004=营销与公关 40006=内容（40001技术等不抓）
         parent_ids = cfg.get("parent_category_ids", [40003, 40004, 40006])

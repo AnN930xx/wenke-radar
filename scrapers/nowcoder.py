@@ -15,7 +15,7 @@ import config
 class NowcoderScraper(BaseScraper):
     name = "牛客日程"
 
-    def fetch(self):
+    def _fetch_items(self):
         cfg = config.COMPANY_CONFIG.get(self.name, {})
         tabs = cfg.get("tabs", [2, 3])
         url = "https://www.nowcoder.com/np-api/u/school-schedule/list-card"

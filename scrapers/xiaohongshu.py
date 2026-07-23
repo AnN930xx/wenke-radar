@@ -19,7 +19,7 @@ class XiaohongshuScraper(BaseScraper):
     job_nature = "校招"          # 社招子类改 "社招"（触发届别豁免+经验过滤+每日新增）
     MAX_PAGES = 20
 
-    def fetch(self):
+    def _fetch_items(self):
         cfg = config.COMPANY_CONFIG.get(self.name, {})
         raw = []
         page = 1

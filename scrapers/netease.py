@@ -17,7 +17,7 @@ PROJECT_RE = re.compile(
 class NeteaseScraper(BaseScraper):
     name = "网易"
 
-    def fetch(self):
+    def _fetch_items(self):
         cfg = config.COMPANY_CONFIG.get(self.name, {})
         exclude = cfg.get("exclude_projects") or []
         projects = self._discover_projects(exclude)

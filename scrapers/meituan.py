@@ -12,7 +12,7 @@ import config
 class MeituanScraper(BaseScraper):
     name = "美团"
 
-    def fetch(self):
+    def _fetch_items(self):
         url = "https://zhaopin.meituan.com/api/official/job/getJobList"
         headers = {
             "Content-Type": "application/json",

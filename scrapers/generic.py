@@ -44,7 +44,7 @@ class GenericScraper(BaseScraper):
         self.cfg = source_config
         super().__init__(http_session)
 
-    def fetch(self):
+    def _fetch_items(self):
         if self.cfg.get("type", "api") == "html":
             return self._fetch_html()
         return self._fetch_api()

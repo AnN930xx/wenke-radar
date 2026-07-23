@@ -8,7 +8,6 @@
 Windows 本地务必带 PYTHONUTF8=1（GBK 控制台打印 emoji/中文会崩）。
 """
 import sys
-import time
 import traceback
 from datetime import date
 
@@ -44,29 +43,22 @@ def run_all_scrapers(session):
 
     def run_one(name, make_scraper):
         print(f"\n[{name}] 抓取中...")
-        started = time.time()
-        scraper = None
         try:
             scraper = make_scraper()
-            batch = scraper.fetch()
-            jobs.extend(batch)
-            counts[name] = len(batch)
-            result = FetchResult(
-                source=name, fetched=len(batch),
-                raw_fetched=scraper.raw_fetched if scraper.raw_fetched is not None else len(batch),
-                reported_total=scraper.reported_total,
-                success=True, duration_s=round(time.time() - started, 1),
-                ratio_override=config.COMPANY_CONFIG.get(name, {}).get("complete_ratio"))
-            state = "" if result.complete is not False else "（⚠️ 疑似不完整）"
-            print(f"  ✅ 获取 {len(batch)} 个岗位{state}")
-        except Exception as e:
-            print(f"  ❌ 抓取失败: {e}")
+        except Exception as e:                    # 抓取器构造失败（配置错等）
+            print(f"  ❌ 构造失败: {e}")
             traceback.print_exc()
             counts[name] = 0
-            result = FetchResult(source=name, fetched=0, raw_fetched=0,
-                                 reported_total=None, success=False,
-                                 duration_s=round(time.time() - started, 1),
-                                 error=str(e))
+            results.append(FetchResult(source=name, success=False, error=str(e)))
+            return
+        result = scraper.fetch()                  # 唯一契约：FetchResult（含 items + 完整性）
+        jobs.extend(result.items)
+        counts[name] = result.fetched
+        if result.success:
+            state = "" if result.complete is not False else "（⚠️ 疑似不完整）"
+            print(f"  ✅ 获取 {result.fetched} 个岗位{state}")
+        else:
+            print(f"  ❌ 抓取失败: {result.error}")
         results.append(result)
 
     for name, cls in SCRAPERS.items():

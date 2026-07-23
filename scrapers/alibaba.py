@@ -16,7 +16,7 @@ HOST = "https://campus-talent.alibaba.com"
 class AlibabaScraper(BaseScraper):
     name = "阿里巴巴"
 
-    def fetch(self):
+    def _fetch_items(self):
         # 1. 抓页面拿 _csrf token
         r = self.session.get(f"{HOST}/campus/position",
                              headers={"Referer": HOST}, timeout=config.REQUEST_TIMEOUT)

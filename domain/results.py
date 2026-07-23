@@ -8,7 +8,7 @@ FetchResult 记录抓取过程的元数据，让下游能区分：
 对账基准是 raw_fetched（分页拿到的原始条数，本地过滤前）——
 字节/腾讯社招等源会在分页后本地丢弃资深岗，返回数天然小于服务端总数，不能拿来对。
 """
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import config
 
@@ -16,11 +16,12 @@ import config
 @dataclass
 class FetchResult:
     source: str                 # 源名（与 SCRAPERS 注册名一致）
-    fetched: int                # 最终返回的岗位数（本地过滤后）
-    raw_fetched: int            # 分页拿到的原始条数（无本地过滤的源 = fetched）
-    reported_total: int | None  # 服务端报告的总数（源未提供则 None）
-    success: bool               # 抓取过程未抛异常
-    duration_s: float
+    items: list = field(default_factory=list)  # 抓到的岗位（与完整性同一通道返回）
+    fetched: int = 0            # 最终返回的岗位数（本地过滤后）
+    raw_fetched: int = 0        # 分页拿到的原始条数（无本地过滤的源 = fetched）
+    reported_total: int = None  # 服务端报告的总数（源未提供则 None）
+    success: bool = True        # 抓取过程未抛异常
+    duration_s: float = 0.0
     error: str = ""
     ratio_override: float = None  # 按源校准的对账比例（北森系总数虚高，见 config complete_ratio）
 

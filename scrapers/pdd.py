@@ -16,7 +16,7 @@ class PddScraper(BaseScraper):
     }
     MAX_PAGES = 20
 
-    def fetch(self):
+    def _fetch_items(self):
         category_filter = config.COMPANY_CONFIG["拼多多"]["t"]
         raw = []
         for page in range(1, self.MAX_PAGES + 1):

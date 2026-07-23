@@ -17,7 +17,7 @@ class BeisenScraper(BaseScraper):
     """按 config.COMPANY_CONFIG[name] 里的 host/category 抓取北森站点"""
     name = ""  # 子类指定
 
-    def fetch(self):
+    def _fetch_items(self):
         cfg = config.COMPANY_CONFIG.get(self.name, {})
         host = cfg["host"].rstrip("/")
         category = cfg.get("category", 2)

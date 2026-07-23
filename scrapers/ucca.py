@@ -16,7 +16,7 @@ TAG_RE = re.compile(r"<[^>]+>")
 class UccaScraper(BaseScraper):
     name = "UCCA"
 
-    def fetch(self):
+    def _fetch_items(self):
         cfg = config.COMPANY_CONFIG.get(self.name, {})
         url = cfg.get("url", "https://ucca.org.cn/careers/")
         r = self.session.get(url, timeout=config.REQUEST_TIMEOUT)

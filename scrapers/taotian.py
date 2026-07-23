@@ -23,7 +23,7 @@ class TaotianScraper(BaseScraper):
             "User-Agent": config.USER_AGENT,
         }
 
-    def fetch(self):
+    def _fetch_items(self):
         csrf = self._obtain_csrf()
         batch_id = self._pick_batch(csrf)
         if not batch_id:

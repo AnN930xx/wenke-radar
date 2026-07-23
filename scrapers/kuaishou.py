@@ -20,7 +20,7 @@ class KuaishouScraper(BaseScraper):
     }
     MAX_PAGES = 20
 
-    def fetch(self):
+    def _fetch_items(self):
         categories = self._load_category_dict()
         project_codes = config.COMPANY_CONFIG["快手"]["recruit_sub_project_codes"]
         raw = []

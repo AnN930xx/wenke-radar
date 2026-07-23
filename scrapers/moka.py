@@ -37,7 +37,7 @@ class MokaScraper(BaseScraper):
     """Moka 通用抓取器，子类通过 config.COMPANY_CONFIG[name] 的 host/org_id/site_id 指定"""
     name = ""
 
-    def fetch(self):
+    def _fetch_items(self):
         cfg = config.COMPANY_CONFIG.get(self.name, {})
         host = cfg["host"].rstrip("/")
         org_id = cfg["org_id"]

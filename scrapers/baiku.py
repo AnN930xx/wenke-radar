@@ -19,7 +19,7 @@ class BaikuScraper(BaseScraper):
     """百库通用抓取器，子类通过 config.COMPANY_CONFIG[name] 的 host/su 指定站点"""
     name = ""
 
-    def fetch(self):
+    def _fetch_items(self):
         cfg = config.COMPANY_CONFIG.get(self.name, {})
         host = cfg["host"].rstrip("/")
         su = cfg["su"]

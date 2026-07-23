@@ -14,7 +14,7 @@ class BilibiliScraper(BaseScraper):
     job_nature = "校招"  # 子类改 "社招"
     # 社招接口仍走 campus 路径，靠 X-Channel + Referer 区分（/api/society 不存在）
 
-    def fetch(self):
+    def _fetch_items(self):
         url = "https://jobs.bilibili.com/api/campus/position/positionList"
         headers = {
             "Content-Type": "application/json",

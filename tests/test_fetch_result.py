@@ -40,6 +40,37 @@ class TestComplete:
         assert fr(raw_fetched=80, ratio_override=0.75).complete is True
 
 
+class TestFetchReturnsResult:
+    """唯一契约：scraper.fetch() 返回 FetchResult（items 内含），异常也兜成失败结果，不抛。"""
+
+    def test_success_wraps_items_and_completeness(self):
+        from scrapers.base import BaseScraper
+        from domain.models import JobItem
+
+        class Fake(BaseScraper):
+            name = "假源"
+            def _fetch_items(self):
+                self.reported_total = 2
+                return [JobItem(company="假源", job_id="1", title="x"),
+                        JobItem(company="假源", job_id="2", title="y")]
+
+        r = Fake(None).fetch()
+        assert r.success and r.fetched == 2 and len(r.items) == 2
+        assert r.reported_total == 2 and r.complete is True
+
+    def test_exception_becomes_failed_result(self):
+        from scrapers.base import BaseScraper
+
+        class Boom(BaseScraper):
+            name = "炸源"
+            def _fetch_items(self):
+                raise RuntimeError("接口挂了")
+
+        r = Boom(None).fetch()      # 不抛异常
+        assert not r.success and r.items == [] and "接口挂了" in r.error
+        assert r.complete is False
+
+
 class TestSuspectSkipsArchive:
     def test_suspect_company_not_archived(self, tmp_path, monkeypatch):
         monkeypatch.setattr(store, "DB_PATH", str(tmp_path / "t.db"))

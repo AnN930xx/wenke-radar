@@ -52,14 +52,14 @@ def run_once(name):
     session = make_session()
     t0 = time.time()
     try:
-        jobs = cls(session).fetch()
-        elapsed = time.time() - t0
-        hits = len(filters.filter_jobs(list(jobs)))
-        return (elapsed, len(jobs), hits, None)
-    except Exception as e:
-        elapsed = time.time() - t0
-        err = f"{type(e).__name__}: {e}"
-        return (elapsed, None, None, err)
+        result = cls(session).fetch()   # 唯一契约：FetchResult
+    except Exception as e:              # 仅抓取器构造异常（fetch 内部异常已被 base 兜成失败结果）
+        return (time.time() - t0, None, None, f"{type(e).__name__}: {e}")
+    elapsed = time.time() - t0
+    if not result.success:
+        return (elapsed, None, None, result.error)
+    hits = len(filters.filter_jobs(list(result.items)))
+    return (elapsed, len(result.items), hits, None)
 
 
 def sequential_test(companies, rounds):

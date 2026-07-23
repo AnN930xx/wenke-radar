@@ -1,6 +1,6 @@
 """猎聘公司页抓取器（服务端渲染 HTML，用 bs4 解析）
 
-有些公司没有官方招聘 API，只在猎聘招人（此处以宽创国际、凯谛思为例）。
+有些家人特别想去的公司（宽创国际、凯谛思）没有官方招聘 API，只在猎聘招人。
 猎聘 PC 站反爬重，但**手机版公司职位页**是服务端渲染的，job-card 直接在 HTML 里：
   GET https://m.liepin.com/company-jobs/{company_id}/   （带 iPhone UA）
   每个 <a class="job-card" data-jobid=..> 里含 标题/薪资/城市/经验/学历/日期/详情链接。
@@ -24,7 +24,7 @@ class LiepinCompanyScraper(BaseScraper):
     name = ""
     company_id = ""
 
-    def fetch(self):
+    def _fetch_items(self):
         cfg = config.COMPANY_CONFIG.get(self.name, {})
         cid = cfg.get("company_id", self.company_id)
         url = f"https://m.liepin.com/company-jobs/{cid}/"
@@ -85,7 +85,7 @@ class LiepinCompanyScraper(BaseScraper):
 
 
 class KuanChuangScraper(LiepinCompanyScraper):
-    """宽创国际（博物馆展陈/文物IP/策展类公司示例）"""
+    """宽创国际（博物馆展陈/文物IP/策展——家人策展方向靶心）"""
     name = "宽创国际"
     company_id = "9584536"
 

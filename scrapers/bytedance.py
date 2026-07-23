@@ -22,7 +22,7 @@ class FeishuAtsScraper(BaseScraper):
     referer_path = "campus/position"
     detail_path = "campus/position/{job_id}/detail"
 
-    def fetch(self):
+    def _fetch_items(self):
         host = self.host.rstrip("/")
         domain = urlparse(host).netloc
         # 第一步：获取 CSRF token

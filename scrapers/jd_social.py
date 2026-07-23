@@ -16,7 +16,7 @@ class JdSocialScraper(BaseScraper):
     LIST_PAGE = "https://zhaopin.jd.com/web/job/job_info_list/3"
     API = "https://zhaopin.jd.com/web/job/job_list"
 
-    def fetch(self):
+    def _fetch_items(self):
         # 先访问列表页拿 jsessionid
         self.session.get(self.LIST_PAGE, timeout=config.REQUEST_TIMEOUT)
         headers = {

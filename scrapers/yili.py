@@ -20,7 +20,7 @@ class YiliScraper(BaseScraper):
                      "corpwebPosition1000yili!gotoPostListForAjax"
                      "?positionType=&brandCode=1&recruitType={rt}&showComp=true&comPart=")
 
-    def fetch(self):
+    def _fetch_items(self):
         cfg = config.COMPANY_CONFIG.get(self.name, {})
         host = cfg.get("host", "https://yili.hotjob.cn").rstrip("/")
         brand_code = cfg.get("brand_code", 1)

@@ -22,7 +22,7 @@ class DidiSocialScraper(BaseScraper):
     name = "滴滴(社招)"
     host = "https://talent.didiglobal.com"
 
-    def fetch(self):
+    def _fetch_items(self):
         url = f"{self.host}/recruit-portal-service/api/job/front/list"
         headers = {"Referer": f"{self.host}/social/list"}
         seen = {}
