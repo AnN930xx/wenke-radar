@@ -38,8 +38,11 @@ Fork 仓库、改一份配置、加一个 Secret 就能跑，零服务器、零�
 3. **配置微信推送**：[sct.ftqq.com](https://sct.ftqq.com/) 微信扫码复制 SendKey →
    仓库 Settings → Secrets → New secret，Name `PUSH_KEY`，Value 填 SendKey
    （多人接收：多个 SendKey 逗号拼接；企业微信机器人用 `WECOM_KEY`）
-4. **定制画像**：编辑 `config.py` —— 方向词表 KEYWORDS、目标城市 TARGET_CITIES、
-   届别窗口 TARGET_GRAD_YEARS、经验阈值 SOCIAL_MAX_EXPERIENCE_YEARS
+4. **定制画像**：
+   - **加自己的求职方向** → 只改 [`user_profile.py`](user_profile.py)（隔离的用户区，
+     写错也不影响抓取、不会让每日任务崩，引擎会回退内置方向并提示）
+   - 城市/届别/经验阈值 → 改 `config.py` 里的 TARGET_CITIES / TARGET_GRAD_YEARS
+     / SOCIAL_MAX_EXPERIENCE_YEARS（届别支持任意年份组合，即改即用）
 5. **手动跑一次**：Actions → 秋招雷达日报 → Run workflow，微信收到推送即部署成功
 
 之后每天北京时间 09:00 自动推送（10:00 备份触发点自动兜底 GitHub cron 延迟）。

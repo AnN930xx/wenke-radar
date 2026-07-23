@@ -116,6 +116,53 @@ CATEGORY_KEYWORDS = ["产品", "运营", "电商", "采销", "商家", "行业",
                      "营销", "增长", "市场", "公关", "人力", "行政", "分析", "战略",
                      "项目", "客户", "编辑", "内容", "品牌"]
 
+
+# ==================== 用户自定义方向（隔离区，改这里不碰引擎）====================
+# 想加自己的求职方向？别动上面的 KEYWORDS——去编辑同目录的 user_profile.py。
+# 隔离保证：
+#   ① 改错不影响抓取——引擎每天抓的是"全量岗位"，方向只决定"从里面挑哪些给你看"；
+#   ② 写错语法也不会让每日任务崩——引擎忽略你的自定义、回退内置方向，并在日志里提示。
+def _load_user_directions() -> dict:
+    """读取 user_profile.MY_DIRECTIONS；文件不存在=未定制（静默），出错=提示并回退。"""
+    import os
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "user_profile.py")
+    if not os.path.exists(path):
+        return {}
+    try:
+        import user_profile
+        extra = getattr(user_profile, "MY_DIRECTIONS", {})
+        return extra if isinstance(extra, dict) else {}
+    except Exception as e:
+        print(f"⚠️ user_profile.py 有误，已忽略你的自定义方向（引擎照常运行）：{e}")
+        return {}
+
+
+def apply_user_directions(extra: dict = None) -> list:
+    """把用户方向合并进 KEYWORDS / CATEGORY_KEYWORDS，返回成功加载的方向名列表。
+    对任何非法输入（非dict/值非list/空名/非字符串关键词）都安全跳过、绝不抛异常，
+    这是"坏配置不影响引擎"的保证。同名方向合并关键词、不覆盖内置。幂等可重复调用。"""
+    if extra is None:
+        extra = _load_user_directions()
+    added = []
+    if not isinstance(extra, dict):
+        return added
+    for name, kws in extra.items():
+        if not isinstance(name, str) or not name.strip():
+            continue
+        if not isinstance(kws, (list, tuple)):
+            continue
+        clean = [k.strip() for k in kws if isinstance(k, str) and k.strip()]
+        if not clean:
+            continue
+        KEYWORDS[name] = list(dict.fromkeys(KEYWORDS.get(name, []) + clean))
+        if name not in CATEGORY_KEYWORDS:
+            CATEGORY_KEYWORDS.append(name)
+        added.append(name)
+    return added
+
+
+apply_user_directions()
+
 # ==================== 排除关键词 ====================
 # 岗位标题含以下词的直接排除（技术/研发类岗位常带"电商/运营/产品"字样造成误报）
 EXCLUDE_TITLE_KEYWORDS = [
