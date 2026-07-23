@@ -105,9 +105,16 @@ def main():
     print(f"抓取完成：共 {len(all_jobs)} 个岗位，本次新增 {len(new_keys)} 个")
     print(f"数据库累计：{store.get_all_jobs_count()} 个岗位")
 
+    # 投递数据由编排层从 tracker 取好、传给纯渲染的 report（report 不直连 DB）
+    try:
+        import tracker
+        applications = tracker.get_recent_applications()
+    except Exception:
+        applications = None
+
     # 完整日报写 reports/ 留档（含维护者视角的完整性告警）
     content = report.generate_brief(all_jobs, new_keys, raw_counts,
-                                    health_notes=health_notes)
+                                    health_notes=health_notes, applications=applications)
     today = date.today()
     print(f"\n📄 简报已生成：reports/{today.isoformat()}.md")
     print("=" * 50)

@@ -18,8 +18,8 @@ import os
 from datetime import datetime, date
 from typing import List, Set
 from domain.models import JobItem
-from domain.enrich import enrich        # 落库前抽取结构化字段（经验年限），供指纹与展示
-from filters import parse_recruit_year  # 届别解析属"业务规则"，统一放 filters 层
+from domain.enrich import enrich              # 落库前抽取结构化字段（经验年限），供指纹与展示
+from domain.recruitment import parse_recruit_year  # 届别解析（纯领域逻辑，store 不再依赖 filters）
 import config
 
 DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "jobs.db")

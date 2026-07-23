@@ -12,11 +12,11 @@ config.py 只提供数据（关键词表/城市表/开关），本层提供逻�
     campus_year_bucket(job)   -> "2026" / "2027" / "不限·其他"（校招按届别分块用）
     parse_recruit_year(text)  -> 从文本解析届别串（store 写 recruit_year 列也用它）
 """
-import re
 from typing import List
 from domain.models import JobItem
 from domain.classify import guess_category
 from domain.enrich import enrich, demands_senior_experience
+from domain.recruitment import parse_recruit_year   # 届别解析已下沉 domain（store 也用它）
 import config
 
 
@@ -62,19 +62,7 @@ def campus_focus_years() -> List[str]:
     return [str(y) for y in getattr(config, "TARGET_GRAD_YEARS", [])]
 
 
-# ==================== 届别解析 ====================
-def parse_recruit_year(text: str) -> str:
-    """从标题/标签解析届别，如 "2026"、"2026/2027"；没写年份返回 "不限"。
-    识别 "2026届/2026" "26届" "26秋/26春/26校" 等写法，覆盖 20xx 全部年份
-    （不锁定某个年代，用户任意配置届别窗口都能识别）；(?<!\\d)(?!\\d) 防薪资等长数字误匹配。
-    """
-    years = set()
-    for m in re.finditer(r"(?<!\d)(20\d{2})(?!\d)", text or ""):
-        years.add(m.group(1))
-    # 两位数写法限定 1x~4x（"26届/30届"），避开"第5届/第100届"这类序数词
-    for m in re.finditer(r"(?<!\d)([1-4]\d)\s*(?:届|秋|春|校)", text or ""):
-        years.add("20" + m.group(1))
-    return "/".join(sorted(years)) if years else "不限"
+# parse_recruit_year 已移至 domain/recruitment.py（上方 import），此处仅供 campus_year_bucket 等使用。
 
 
 def campus_year_bucket(job) -> str:

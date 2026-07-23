@@ -152,9 +152,9 @@ def _render_section(lines, section_title, note, jobs_subset, raw_counts_subset,
 
 
 def generate_brief(jobs: List[JobItem], new_keys: set, all_raw_count: dict,
-                   health_notes: list = None) -> str:
-    """生成当日 Markdown 简报。health_notes = 数据完整性告警（维护者视角，
-    只进留档版不进微信推送）。"""
+                   health_notes: list = None, applications: list = None) -> str:
+    """生成当日 Markdown 简报。health_notes = 数据完整性告警（维护者视角，只进留档版）；
+    applications = 投递记录（由 main 从 tracker 取好传入，report 不直连 DB）。"""
     today = date.today().isoformat()
     now = datetime.now().strftime("%Y-%m-%d %H:%M")
 
@@ -194,8 +194,8 @@ def generate_brief(jobs: List[JobItem], new_keys: set, all_raw_count: dict,
                  f"{len([j for j in social_jobs if getattr(j, '_is_new', False)])}）")
     lines.append("")
 
-    # 投递进度概览
-    app_section = _build_application_section()
+    # 投递进度概览（数据由 main 传入）
+    app_section = _build_application_section(applications)
     if app_section:
         lines.extend(app_section)
 
@@ -278,14 +278,9 @@ def generate_push_brief(jobs: List[JobItem], new_keys: set):
     return ("\n".join(lines).strip(), len(new_jobs))
 
 
-def _build_application_section():
-    """构建投递进度概览（插入每日简报里）。
-    投递数据由 tracker 层提供（applications.db 归 tracker 管，本模块不直连 DB）。"""
-    try:
-        import tracker
-        rows = tracker.get_recent_applications()
-    except Exception:
-        return None
+def _build_application_section(rows):
+    """构建投递进度概览。投递数据由 main 从 tracker 取好传入（本模块是纯渲染器，
+    不 import tracker、不直连任何 DB——二轮审查的分层精修）。"""
     if not rows:
         return None
 
