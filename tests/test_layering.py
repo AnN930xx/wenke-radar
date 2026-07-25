@@ -27,7 +27,8 @@ def test_config_is_pure_data():
 
 def test_domain_depends_only_on_config():
     """领域层只可依赖 config，不依赖任何实现层"""
-    for m in ("models", "classify", "enrich", "results", "recruitment", "canonical"):
+    for m in ("models", "classify", "enrich", "results", "recruitment",
+              "canonical", "delivery"):
         assert not (imports_of(f"domain/{m}.py") & _IMPL_LAYERS), f"domain/{m}.py 反向依赖"
 
 

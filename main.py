@@ -20,6 +20,7 @@ import store
 import report
 import push
 from domain.results import FetchResult
+from domain.delivery import summarize_push
 from scrapers import SCRAPERS
 from scrapers.generic import GenericScraper
 
@@ -129,7 +130,16 @@ def main():
         title = f"今日新发布岗位 · {date_label}"
     else:
         title = f"今日无新增岗位 · {date_label}"
-    push.send_brief(push_content, title=title)
+    # 送达检测：逐渠道结果落库（可观测）+ 汇总。全渠道失败=用户没收到 → 退出码非零，
+    # 让 GitHub 运行标红并邮件告警（唯一能"出圈"通知到人的兜底，因为推送渠道本身正是失败的那个）。
+    # 报告已存 reports/ 并进运行摘要，即便微信没推到，也能在告警邮件点进去看当天岗位。
+    push_results = push.send_brief(push_content, title=title)
+    store.save_push_health(push_results)
+    summary = summarize_push(push_results)
+    if summary.all_failed:
+        print(f"\n❌ 推送全部失败（{summary.failed}/{summary.total} 渠道），本次未送达用户。"
+              f"\n   → 运行将标红，请查收 GitHub 告警邮件；当天日报见运行摘要 / reports/。")
+        sys.exit(1)
     return content
 
 

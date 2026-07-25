@@ -14,6 +14,7 @@ config.py   纯配置数据（画像/源开关/守卫阈值/各公司参数）�
    ↓
 domain/     领域层：models.JobItem(数据契约) + classify(类别推断) + enrich(JD解析) + results.FetchResult
             + canonical(跨源去重：canonical_job_id=雇主::平台job_id，校招/社招双feed同岗只推一次)
+            + delivery(送达域纯逻辑：PushResult+全渠道失败判定+两道触发守卫真源)
    ↓
 scrapers/   抓取层：只负责"从网站拿到 List[JobItem]"，不过滤不碰DB不渲染；
             分页循环设 self.reported_total（完整性对账）；有本地过滤的源另设 self.raw_fetched
@@ -24,7 +25,8 @@ scoring.py  评分层：可投程度 0-100（过滤答"能不能投"，评分答
 store.py    存储层：jobs.db + 新增对比 + 归档 + 三道可信度守卫 + source_health + job_events
    ↓
 report.py   渲染层（不直连DB）    tracker.py 投递记录层（applications.db 唯一入口）
-push.py     推送层（环境变量 PUSH_KEY/WECOM_KEY，支持多key）
+push.py     推送层（环境变量 PUSH_KEY/WECOM_KEY，支持多key）；返回结构化 PushResult 供 main 判断送达
+ops_guard.py 触发守卫薄入口：workflow 跑抓取前调它(去重+防抢跑)，规则在 domain/delivery，可测
    ↓
 main.py     编排层：抓取→FetchResult完整性判定→存储→双渲染→推送
 ```
@@ -44,7 +46,7 @@ main.py     编排层：抓取→FetchResult完整性判定→存储→双渲染
 
 ```bash
 PYTHONUTF8=1 python main.py                  # 本地跑（Windows 必带 PYTHONUTF8=1）
-PYTHONUTF8=1 python -m pytest tests/ -q      # 96 个测试，改核心逻辑必跑
+PYTHONUTF8=1 python -m pytest tests/ -q      # 228 个测试，改核心逻辑必跑
 PYTHONUTF8=1 python tests/record_fixtures.py 某源   # 接口改版后重录 fixture
 PYTHONUTF8=1 python stress_test.py 某源      # 新源压测
 gh workflow run daily.yml                    # 手动触发云端

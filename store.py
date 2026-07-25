@@ -76,6 +76,12 @@ def _get_conn():
             complete INTEGER, duration_s REAL, error TEXT
         )
     """)
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS push_health (
+            run_at TEXT, channel TEXT, success INTEGER,
+            code INTEGER, pushid TEXT, error TEXT
+        )
+    """)
     conn.execute("DROP VIEW IF EXISTS v_job_summary")
     conn.execute("""
         CREATE VIEW v_job_summary AS
@@ -279,6 +285,23 @@ def save_source_health(results) -> None:
             (now, r.source, config.source_kind(r.source), int(r.success), r.fetched,
              r.raw_fetched, r.reported_total, None if complete is None else int(complete),
              r.duration_s, r.error))
+    conn.commit()
+    conn.close()
+
+
+def save_push_health(results) -> None:
+    """把本轮各推送渠道的结果落库（送达可观测：事后能查哪天哪个渠道推失败了）。
+    纯持久化——是否告警/标红由编排层按 delivery.summarize_push 判断，本函数不做决策。"""
+    results = list(results or [])
+    if not results:
+        return
+    conn = _get_conn()
+    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    for r in results:
+        conn.execute(
+            "INSERT INTO push_health (run_at, channel, success, code, pushid, error)"
+            " VALUES (?,?,?,?,?,?)",
+            (now, r.channel, int(r.success), r.code, r.pushid, r.error))
     conn.commit()
     conn.close()
 

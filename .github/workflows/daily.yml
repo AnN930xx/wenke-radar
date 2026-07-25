@@ -37,20 +37,6 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v4
 
-      # 防抢跑守卫：手动触发若在"当天定时推送落地前"跑，会生成当天首份日报+推送，
-      # 抢占随后定时推送的名额（增量是一次性消费品，去重守卫会让定时那次空跑）。
-      # 不看时间只看结果——当天日报还没出 = 这次手动跑会成为当天首份 = 拦截。
-      # cron 常延迟数小时，日报存在与否才是铁证。确需补跑（定时被丢弃）→ 带 force=true。
-      - name: 手动触发防抢跑守卫
-        if: github.event_name == 'workflow_dispatch' && inputs.force != true
-        run: |
-          TODAY=$(date +%F)
-          if [ ! -f "reports/${TODAY}.md" ]; then
-            echo "::error::今天（${TODAY}）的日报还没生成——现在手动跑会成为当天首份日报并推送，抢占定时推送名额。请等定时推送跑完后再验证；确需现在补跑（如定时任务被丢弃）带 force=true。"
-            exit 1
-          fi
-          echo "防抢跑守卫通过：今天（${TODAY}）日报已存在，手动跑不会抢跑（增量去重守卫兜底）。"
-
       - name: 安装 Python
         uses: actions/setup-python@v5
         with:
@@ -102,17 +88,27 @@ jobs:
             rm -f data/jobs.db
           fi
 
-      # 定时触发（含备份触发点/延迟补发的主触发点）去重：当天日报文件已存在
-      # 说明今天已经跑过并推送过，直接跳过抓取，避免重复推送。手动触发不受此限。
-      - name: 定时触发去重守卫
+      # 触发守卫（去重 + 防抢跑，单一真源见 domain/delivery.py，退出码见 ops_guard.py）：
+      #   10=定时去重命中（当天已推过→跳过）  20=防抢跑拦截（手动+当天未出→需 force）  0=继续
+      - name: 触发守卫（去重 + 防抢跑）
         id: guard
+        env:
+          EVENT: ${{ github.event_name }}
+          FORCE: ${{ inputs.force }}
         run: |
-          TODAY=$(date +%Y-%m-%d)
-          if [ "${{ github.event_name }}" = "schedule" ] && [ -f "reports/${TODAY}.md" ]; then
+          set +e
+          python ops_guard.py
+          code=$?
+          set -e
+          if [ "$code" = "10" ]; then
             echo "skip=true" >> $GITHUB_OUTPUT
-            echo "今日日报已生成（较早触发点已跑过），本次跳过"
-          else
+          elif [ "$code" = "20" ]; then
+            echo "::error::手动触发被防抢跑守卫拦截（当天日报未出，会抢占定时推送）。确需补跑带 force=true。"
+            exit 1
+          elif [ "$code" = "0" ]; then
             echo "skip=false" >> $GITHUB_OUTPUT
+          else
+            echo "::error::触发守卫异常退出码 $code"; exit "$code"
           fi
 
       - name: 运行抓取
