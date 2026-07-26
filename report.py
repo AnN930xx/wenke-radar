@@ -60,7 +60,7 @@ def _render_section(lines, section_title, note, jobs_subset, raw_counts_subset,
                     sort_key, all_daily_only=False, year_split=False):
     """渲染一个招聘大区（校招 或 社招）：总览表 + 今日新增 + 当前在招。
     all_daily_only=True（社招区专用）：整区都不铺存量，只报今日新增 + 一行计数，
-    因为家人已毕业、社招存量过大只关心每日更新（见项目目标）。"""
+    因为目标用户多已毕业、社招存量过大，只关心每日更新（见项目目标）。"""
     new_jobs = [j for j in jobs_subset if getattr(j, "_is_new", False)]
     existing_jobs = [j for j in jobs_subset if not getattr(j, "_is_new", False)]
     companies = sorted(raw_counts_subset.keys(), key=sort_key)
@@ -215,7 +215,7 @@ def generate_brief(jobs: List[JobItem], new_keys: set, all_raw_count: dict,
         _render_section(
             lines, "💼 社招入门岗",
             f"社招入门级岗位（已排除资深/多年经验岗）｜方向：{focus_str}｜"
-            f"**只报今日新增**（家人已毕业，存量太多不铺，每天看新岗即可）",
+            f"**只报今日新增**（社招存量太多不铺，每天看新岗即可）",
             social_jobs, social_counts, _sort_key, all_daily_only=True)
 
     lines.append("---")

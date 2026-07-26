@@ -91,7 +91,7 @@ def _match_year(job: JobItem) -> bool:
 
 
 def _match_not_intern(job: JobItem) -> bool:
-    """排除实习岗（家人已毕业，只留校招正式/社招岗）。"""
+    """排除实习岗（面向已毕业/应届求职者，只留校招正式岗与社招岗）。"""
     if not getattr(config, "EXCLUDE_INTERN", False):
         return True
     text = f"{job.title} {job.tags} {job.category}".lower()
