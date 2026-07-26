@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 💬 用法提问 / 想聊聊
+    url: https://github.com/onism1767-creator/wenke-radar/discussions
+    about: 不确定算不算 bug、想问怎么配、想建议新功能，都可以来这里聊
+  - name: 📖 先看看 README
+    url: https://github.com/onism1767-creator/wenke-radar#readme
+    about: 部署步骤、KEY 填哪里、没收到推送怎么排查，README 里都有

@@ -1,0 +1,51 @@
+name: 🔧 某个源失效了
+description: 某家公司的岗位抓不到了 / 数量突然变成 0 / 抓到的内容不对
+title: "[源失效] "
+labels: ["源失效"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢报告！公司改版招聘官网后，抓取会**静默变空**（不报错但抓不到岗位），
+        你的这条 issue 能让所有使用者受益。
+
+  - type: input
+    id: source
+    attributes:
+      label: 哪个源？
+      description: 填公司名就行，和日报里显示的一致
+      placeholder: 例：泡泡玛特(社招)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: symptom
+    attributes:
+      label: 什么现象？
+      options:
+        - 岗位数变成 0
+        - 岗位数明显变少（比官网上少很多）
+        - 抓到的岗位信息不对（标题/链接/地点错乱）
+        - 运行日志里这个源报错了
+        - 其他
+    validations:
+      required: true
+
+  - type: textarea
+    id: detail
+    attributes:
+      label: 补充说明
+      description: |
+        方便的话贴上运行日志里这个源那几行（Actions → 点开那次运行 → 「运行抓取」步骤里搜公司名）。
+        如果知道官网上实际有多少个岗位，也一并写上，帮助判断是"真没岗"还是"抓漏了"。
+      placeholder: |
+        例：官网上明明有 30 多个岗位，但日报里显示 0。
+        日志里这一行：[某公司] ✅ 获取 0 个岗位
+      render: shell
+
+  - type: input
+    id: url
+    attributes:
+      label: 这家公司的招聘页地址
+      description: 有的话贴一下，方便直接去看接口改成什么样了
+      placeholder: https://xxx.zhiye.com/campus

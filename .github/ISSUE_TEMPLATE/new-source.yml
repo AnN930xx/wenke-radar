@@ -1,0 +1,59 @@
+name: ➕ 想加一家公司 / 机构
+description: 希望雷达也能盯着某家公司的招聘官网
+title: "[加源] "
+labels: ["加源"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        欢迎！**最需要的是文科对口的机构**——美术馆、博物馆、出版社、文化公司、
+        教育机构、咨询公司、非营利组织，这类源目前覆盖最薄。
+
+        不需要你会写代码，把公司名和招聘页地址填上就行。
+
+  - type: input
+    id: company
+    attributes:
+      label: 公司 / 机构名称
+      placeholder: 例：某某美术馆
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: 招聘页地址
+      description: 公司官网上那个能看到岗位列表的页面（**不是** BOSS / 智联 / 前程无忧上的页面）
+      placeholder: https://www.example.com/careers
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: compliance
+    attributes:
+      label: 快速确认（帮我们判断能不能接）
+      options:
+        - label: 我**不用登录**，直接用浏览器打开这个页面就能看到岗位列表
+          required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 这家单位属于
+      options:
+        - 文化 / 艺术 / 博物馆 / 美术馆
+        - 出版 / 媒体 / 内容
+        - 教育 / 培训
+        - 咨询 / 商业服务
+        - 快消 / 零售 / 消费品牌
+        - 互联网 / 科技
+        - 非营利 / 公益
+        - 其他
+    validations:
+      required: true
+
+  - type: textarea
+    id: note
+    attributes:
+      label: 补充说明（可选）
+      description: 比如「他们家每年秋招放策展助理」「岗位在页面底部要点展开」之类的线索

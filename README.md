@@ -186,7 +186,8 @@ PYTHONUTF8=1 python -m pytest tests/ -q   # 跑测试（230 个）
 3. 全新平台 → 在 `scrapers/` 新建模块继承 `BaseScraper`，然后在三处注册
 
 改完跑 `pytest`——37 个源存了真实响应样本做契约测试，改坏了 CI 会拦住你。
-欢迎提 PR 贡献新的源，尤其是文科生对口的文化 / 出版 / 教育 / 咨询类机构。
+
+详细步骤（含各平台怎么认、验收清单、合规红线）见 **[CONTRIBUTING.md](CONTRIBUTING.md)**。
 </details>
 
 ---
@@ -196,7 +197,14 @@ PYTHONUTF8=1 python -m pytest tests/ -q   # 跑测试（230 个）
 ⭐ **点个 Star** 吧——这是对这个项目最实在的鼓励，
 也能让更多在秋招里焦头烂额的文科生看到它。
 
-有问题、发现某个源失效了、想加公司，欢迎提 [Issue](../../issues)。
+**不会写代码也能帮上忙**：
+
+- 🔧 发现某个公司的岗位抓不到了 → [报告失效的源](../../issues/new?template=source-broken.yml)
+- ➕ 想让雷达也盯着某家公司 → [申请加源](../../issues/new?template=new-source.yml)
+  （**最需要**美术馆、出版社、文化机构、咨询公司这类文科对口的单位）
+- 🐛 用起来有问题 → [提问题](../../issues/new?template=bug-report.yml)
+
+想贡献代码（加个源其实只要几行配置）→ 见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ---
 

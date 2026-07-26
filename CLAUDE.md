@@ -46,7 +46,7 @@ main.py     编排层：抓取→FetchResult完整性判定→存储→双渲染
 
 ```bash
 PYTHONUTF8=1 python main.py                  # 本地跑（Windows 必带 PYTHONUTF8=1）
-PYTHONUTF8=1 python -m pytest tests/ -q      # 228 个测试，改核心逻辑必跑
+PYTHONUTF8=1 python -m pytest tests/ -q      # 230 个测试，改核心逻辑必跑
 PYTHONUTF8=1 python tests/record_fixtures.py 某源   # 接口改版后重录 fixture
 PYTHONUTF8=1 python stress_test.py 某源      # 新源压测
 gh workflow run daily.yml                    # 手动触发云端

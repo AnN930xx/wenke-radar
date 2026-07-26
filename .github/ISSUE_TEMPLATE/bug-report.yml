@@ -1,0 +1,48 @@
+name: 🐛 用起来有问题
+description: 没收到推送 / 报错 / 结果不对
+title: "[问题] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **没收到推送？先照 README 的「没收到推送？照这三步排查」试一下**，
+        大部分情况是①没关注「方糖」服务号，或②Secret 名字不是一字不差的 `PUSH_KEY`。
+
+        排查过还是不行，再来填这个 👇
+
+  - type: textarea
+    id: what
+    attributes:
+      label: 遇到了什么问题？
+      placeholder: 例：Actions 跑完是绿色的，但微信一直收不到消息
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checked
+    attributes:
+      label: 已经排查过的（勾上你确认过的）
+      options:
+        - label: 微信已经关注了「方糖」服务号，在 Server酱 官网点「发送测试消息」能收到
+        - label: Secret 的名字确认是 `PUSH_KEY`（全大写、无空格）
+        - label: 看过 Actions 里那次运行的日志
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 报错信息 / 相关日志
+      description: |
+        Actions → 点开失败的那次运行 → 展开红色的步骤，把报错贴过来。
+        ⚠️ 贴之前**检查一遍有没有你的 SendKey**，有的话打码。
+      render: shell
+
+  - type: dropdown
+    id: where
+    attributes:
+      label: 在哪跑的？
+      options:
+        - GitHub Actions（云端自动跑）
+        - 自己电脑上跑的
+    validations:
+      required: true
