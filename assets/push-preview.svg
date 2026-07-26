@@ -1,0 +1,131 @@
+<svg viewBox="0 0 800 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="微信推送效果预览">
+  <defs>
+    <linearGradient id="ic2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F8B64C"/>
+      <stop offset="1" stop-color="#DC652A"/>
+    </linearGradient>
+    <filter id="ph" x="-15%" y="-8%" width="130%" height="120%">
+      <feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#8A5A2B" flood-opacity="0.22"/>
+    </filter>
+    <style>
+      .zh { font-family: "Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC",sans-serif; }
+      .link { fill: #4A6FA5; }
+      .muted { fill: #9A8B7B; }
+    </style>
+  </defs>
+
+  <rect width="800" height="720" fill="#FDF8F0"/>
+
+  <!-- ============ 手机 ============ -->
+  <g filter="url(#ph)">
+    <rect x="24" y="20" width="416" height="640" rx="46" fill="#2A231C"/>
+    <rect x="36" y="32" width="392" height="616" rx="36" fill="#EDEDED"/>
+  </g>
+
+  <!-- 状态栏 -->
+  <g class="zh">
+    <rect x="36" y="32" width="392" height="38" rx="0" fill="#EDEDED"/>
+    <text x="70" y="58" font-size="15" font-weight="700" fill="#2A231C">7:34</text>
+    <rect x="352" y="43" width="22" height="11" rx="3" fill="none" stroke="#2A231C" stroke-width="1.4"/>
+    <rect x="354" y="45" width="16" height="7" rx="1.5" fill="#2A231C"/>
+    <circle cx="330" cy="49" r="3" fill="#2A231C"/>
+    <circle cx="318" cy="49" r="3" fill="#2A231C" opacity="0.5"/>
+  </g>
+
+  <!-- 导航栏 -->
+  <g class="zh">
+    <rect x="36" y="70" width="392" height="46" fill="#F6F6F6"/>
+    <path d="M 62 93 L 54 86 L 62 79" fill="none" stroke="#2A231C" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="232" y="99" font-size="17" font-weight="700" fill="#1F1B16"
+          text-anchor="middle">秋招雷达</text>
+    <line x1="36" y1="116" x2="428" y2="116" stroke="#DCDCDC" stroke-width="1"/>
+  </g>
+
+  <!-- 发信人 -->
+  <g class="zh">
+    <rect x="60" y="136" width="34" height="34" rx="8" fill="url(#ic2)"/>
+    <g transform="translate(60,136) scale(0.0664)">
+      <g fill="none" stroke="#FFFFFF" stroke-linecap="round">
+        <path d="M 160 320 A 96 96 0 0 1 352 320" stroke-width="22" opacity="0.5"/>
+        <path d="M 200 320 A 56 56 0 0 1 312 320" stroke-width="22" opacity="0.8"/>
+      </g>
+      <circle cx="352" cy="186" r="24" fill="#FFFFFF"/>
+      <g fill="#FFFFFF">
+        <path d="M 134 328 C 176 304 226 308 254 332 L 254 378 C 226 354 176 350 134 374 Z"/>
+        <path d="M 378 328 C 336 304 286 308 258 332 L 258 378 C 286 354 336 350 378 374 Z"/>
+      </g>
+    </g>
+    <text x="104" y="159" font-size="14" class="muted">秋招雷达 · 服务号</text>
+  </g>
+
+  <!-- 消息卡片 -->
+  <rect x="60" y="180" width="344" height="404" rx="14" fill="#FFFFFF"/>
+
+  <g class="zh">
+    <!-- 推送标题 -->
+    <text x="82" y="212" font-size="18" font-weight="700" fill="#1F1B16">今日新发布岗位 · 7月25日</text>
+    <line x1="82" y1="228" x2="382" y2="228" stroke="#EFEFEF" stroke-width="1"/>
+
+    <!-- 社招区 -->
+    <text x="82" y="258" font-size="16" font-weight="700" fill="#C2701F">💼 社招岗位</text>
+
+    <text x="82" y="288" font-size="15" font-weight="700" fill="#2B231B">字节跳动（2）</text>
+    <text x="82" y="313" font-size="14.5" class="link">· ⭐ 内容运营（抖音电商）· 上海</text>
+    <text x="82" y="337" font-size="14.5" class="link">· 产品经理-生活服务 · 北京</text>
+
+    <text x="82" y="369" font-size="15" font-weight="700" fill="#2B231B">小红书（1）</text>
+    <text x="82" y="394" font-size="14.5" class="link">· 增长运营-社区 · 上海</text>
+
+    <!-- 校招区 -->
+    <text x="82" y="428" font-size="16" font-weight="700" fill="#C2701F">🎓 校招岗位</text>
+
+    <text x="82" y="458" font-size="15" font-weight="700" fill="#2B231B">腾讯（1）</text>
+    <text x="82" y="483" font-size="14.5" class="link">· ⭐ 产品策划（2026届）· 深圳</text>
+
+    <!-- 页脚 -->
+    <line x1="82" y1="512" x2="382" y2="512" stroke="#EFEFEF" stroke-width="1"/>
+    <text x="82" y="537" font-size="12.5" class="muted">📡 秋招雷达 ｜ ⭐=高度匹配</text>
+    <text x="82" y="558" font-size="12.5" class="muted">每日清晨自动巡航</text>
+  </g>
+
+  <!-- Home 指示条 -->
+  <rect x="182" y="630" width="120" height="5" rx="2.5" fill="#2A231C" opacity="0.35"/>
+
+  <!-- ============ 右侧说明 ============ -->
+  <g class="zh">
+    <text x="492" y="150" font-size="24" font-weight="700" fill="#231D16">它每天长这样</text>
+
+    <g font-size="16" fill="#5B5048">
+      <circle cx="504" cy="205" r="14" fill="#FBEAD4"/>
+      <text x="504" y="211" font-size="14" font-weight="700" fill="#C2701F"
+            text-anchor="middle">1</text>
+      <text x="530" y="203" font-weight="700" fill="#231D16">早上 7:30 前后送达</text>
+      <text x="530" y="226" font-size="14" class="muted">最迟中午前一定到（多触发点兜底）</text>
+
+      <circle cx="504" cy="285" r="14" fill="#FBEAD4"/>
+      <text x="504" y="291" font-size="14" font-weight="700" fill="#C2701F"
+            text-anchor="middle">2</text>
+      <text x="530" y="283" font-weight="700" fill="#231D16">只有「今天新放出」的岗</text>
+      <text x="530" y="306" font-size="14" class="muted">存量不打扰，一分钟看完</text>
+
+      <circle cx="504" cy="365" r="14" fill="#FBEAD4"/>
+      <text x="504" y="371" font-size="14" font-weight="700" fill="#C2701F"
+            text-anchor="middle">3</text>
+      <text x="530" y="363" font-weight="700" fill="#231D16">点岗位名 = 直接跳投递页</text>
+      <text x="530" y="386" font-size="14" class="muted">不用再自己搜官网入口</text>
+
+      <circle cx="504" cy="445" r="14" fill="#FBEAD4"/>
+      <text x="504" y="451" font-size="14" font-weight="700" fill="#C2701F"
+            text-anchor="middle">4</text>
+      <text x="530" y="443" font-weight="700" fill="#231D16">⭐ = 和你画像高度匹配</text>
+      <text x="530" y="466" font-size="14" class="muted">同公司内高分岗排在前面</text>
+
+      <circle cx="504" cy="525" r="14" fill="#FBEAD4"/>
+      <text x="504" y="531" font-size="14" font-weight="700" fill="#C2701F"
+            text-anchor="middle">5</text>
+      <text x="530" y="523" font-weight="700" fill="#231D16">可以推给好几个人</text>
+      <text x="530" y="546" font-size="14" class="muted">多个 SendKey 逗号拼接即可</text>
+    </g>
+  </g>
+</svg>

@@ -65,7 +65,13 @@ def should_skip_scheduled_run(event_name: str, report_exists: bool) -> bool:
 
 
 def should_block_manual_dispatch(event_name: str, report_exists: bool,
-                                 force: bool) -> bool:
+                                 force: bool, has_history: bool = True) -> bool:
     """手动触发防抢跑：当天日报还没出时手动跑，会成为当天首份并推送、抢占随后定时推送的名额。
-    → 拦截，除非显式 force=true（用于定时确实被 GitHub 丢弃时的补跑）。"""
-    return event_name == "workflow_dispatch" and not report_exists and not force
+    → 拦截，除非显式 force=true（用于定时确实被 GitHub 丢弃时的补跑）。
+
+    has_history=False（reports/ 里一份日报都没有）→ 放行：这是新部署者的首次试跑，
+    此时没有"既有的每日节奏"可抢占，拦截只会让人以为没配置成功。守卫只保护已在跑的系统。
+    """
+    if event_name != "workflow_dispatch" or force:
+        return False
+    return has_history and not report_exists

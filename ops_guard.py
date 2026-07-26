@@ -10,6 +10,7 @@
 
 环境变量：EVENT=github.event_name，FORCE=inputs.force（"true"/其它）。
 """
+import glob
 import os
 import sys
 from datetime import date
@@ -26,11 +27,13 @@ def main() -> int:
     force = os.environ.get("FORCE", "").lower() == "true"
     report_exists = os.path.exists(
         os.path.join("reports", f"{date.today().isoformat()}.md"))
+    # 有没有"既有的每日节奏"可被抢占——新部署者首次试跑时 reports/ 为空，应放行
+    has_history = bool(glob.glob(os.path.join("reports", "*.md")))
 
     if should_skip_scheduled_run(event, report_exists):
         print("定时去重：当天日报已存在，跳过本次触发（避免重复推送）。")
         return SKIP_EXIT
-    if should_block_manual_dispatch(event, report_exists, force):
+    if should_block_manual_dispatch(event, report_exists, force, has_history):
         print("防抢跑：当天日报还没出，手动跑会抢占定时推送名额；"
               "确需补跑（如定时被 GitHub 丢弃）请带 force=true。")
         return BLOCK_EXIT

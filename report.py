@@ -278,7 +278,7 @@ def generate_push_brief(jobs: List[JobItem], new_keys: set):
     _render_block("💼 社招岗位", social)
     _render_block("🎓 校招岗位", campus, with_year=True)
     lines.append("———")
-    lines.append("📡 秋招雷达 ｜ ⭐=高度匹配 ｜ 每日 09:00 自动巡航")
+    lines.append("📡 秋招雷达 ｜ ⭐=高度匹配 ｜ 每日清晨自动巡航")
     return ("\n".join(lines).strip(), len(new_jobs))
 
 

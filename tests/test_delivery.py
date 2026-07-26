@@ -70,3 +70,13 @@ class TestManualAntiPreempt:
 
     def test_schedule_not_subject_to_antipreempt(self):
         assert should_block_manual_dispatch("schedule", False, False) is False
+
+    def test_first_run_of_fresh_deploy_allowed(self):
+        """新部署者首次试跑（reports/ 空）没有既有节奏可抢占 → 放行，
+        否则每个新用户按 README 点第一次 Run workflow 都会失败。"""
+        assert should_block_manual_dispatch(
+            "workflow_dispatch", False, False, has_history=False) is False
+
+    def test_established_system_still_protected(self):
+        assert should_block_manual_dispatch(
+            "workflow_dispatch", False, False, has_history=True) is True
