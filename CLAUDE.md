@@ -46,7 +46,8 @@ main.py     编排层：抓取→FetchResult完整性判定→存储→双渲染
 
 ```bash
 PYTHONUTF8=1 python main.py                  # 本地跑（Windows 必带 PYTHONUTF8=1）
-PYTHONUTF8=1 python -m pytest tests/ -q      # 230 个测试，改核心逻辑必跑
+PYTHONUTF8=1 python -m pytest tests/ -q      # 237 个测试，改核心逻辑必跑
+PYTHONUTF8=1 python main.py --repush         # 补推：按当前配置把当天已入库岗位重推一次
 PYTHONUTF8=1 python tests/record_fixtures.py 某源   # 接口改版后重录 fixture
 PYTHONUTF8=1 python stress_test.py 某源      # 新源压测
 gh workflow run daily.yml                    # 手动触发云端
@@ -59,4 +60,7 @@ gh workflow run daily.yml                    # 手动触发云端
 - jobs.db 不进 git（Actions cache + artifact 快照）；applications.db 进 git，两者别混
 - git 多步操作别用 `;` 一把梭；push 确认 `main->main` 再触发云端
 - 验收不能只看"抓取完成"，要抽查岗位性质与数量对照官网
+- **排除词会静默删数据**：加任何排除词前先全库量化它挡掉多少、抽查该不该挡。
+  典型：单列"专家"曾误杀 1079 个对口岗（大厂"XX专家"是 P5~P6 普通职级不是管理层）。
+  召回率问题不会自己报错，只会表现成"今天怎么这么少"
 - 反爬分寸：只调公开接口、限速、每日一次；硬壁垒（签名/登录）探明即放弃并记录
