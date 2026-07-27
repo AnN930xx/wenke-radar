@@ -4,6 +4,8 @@
 用法:
     python main.py            # 日常运行：对比历史，报告今日新增
     python main.py --full     # 全量初始化：清库重建，不标记新增（首次部署用）
+    python main.py --repush   # 补推：按当前配置把当天已入库岗位重推一次（不抓取、不写日报）
+    python main.py --repush --date=2026-07-27   # 补推指定日期
 
 Windows 本地务必带 PYTHONUTF8=1（GBK 控制台打印 emoji/中文会崩）。
 """
@@ -75,15 +77,18 @@ def run_all_scrapers(session):
     return jobs, counts, results
 
 
-def repush_today():
-    """补推：不抓取，把「今天已入库的岗位」按当前配置重新过滤渲染并推送一次。
+def repush(day: str = None):
+    """补推：不抓取，把「某天已入库的岗位」按当前配置重新过滤渲染并推送一次。
 
-    用途：改了求职方向/过滤规则/评分权重之后，想让今天的推送按新配置重来一遍；
-    或当天推送渠道全挂、修好后补发。不写日报、不动数据库，纯重发。
+    用途：改了求职方向/过滤规则/评分权重之后，想让某天的推送按新配置重来一遍；
+    或当天推送渠道全挂、修好后补发。不写日报、不动数据库，纯重发——
+    因此不会占用当天的"新增名额"，之后的定时运行照常推送。
+
+    day 缺省为今天；跨零点后想补推昨天的，传 --date=YYYY-MM-DD。
     """
-    today = date.today()
+    today = date.fromisoformat(day) if day else date.today()
     jobs = store.load_jobs_seen_on(today.isoformat())
-    print(f"补推模式：今天入库 {len(jobs)} 个岗位，按当前配置重新过滤渲染")
+    print(f"补推模式：{today.isoformat()} 入库 {len(jobs)} 个岗位，按当前配置重新过滤渲染")
     # 今天入库的全部视为"今日新增"（推送本就只报当天新增）
     content, n = report.generate_push_brief(jobs, {j.dedup_key for j in jobs})
     date_label = f"{today.month}月{today.day}日"
@@ -99,7 +104,9 @@ def repush_today():
 
 def main():
     if "--repush" in sys.argv:
-        return repush_today()
+        day = next((a.split("=", 1)[1] for a in sys.argv
+                    if a.startswith("--date=")), None)
+        return repush(day)
 
     full_mode = "--full" in sys.argv
     print("=" * 50)

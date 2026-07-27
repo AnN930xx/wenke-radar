@@ -25,6 +25,11 @@ BLOCK_EXIT = 20
 def main() -> int:
     event = os.environ.get("EVENT", "")
     force = os.environ.get("FORCE", "").lower() == "true"
+    # 补推只是把已入库岗位按新配置重发一次：不抓取、不写日报，
+    # 因此不会占用当天的推送名额，守卫无需拦它。
+    if os.environ.get("REPUSH", "").lower() == "true":
+        print("补推模式：跳过触发守卫（不抓取、不写日报，不会抢跑定时推送）。")
+        return 0
     report_exists = os.path.exists(
         os.path.join("reports", f"{date.today().isoformat()}.md"))
     # 有没有"既有的每日节奏"可被抢占——新部署者首次试跑时 reports/ 为空，应放行
