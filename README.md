@@ -41,7 +41,7 @@
 
 ```text
 我是 GitHub 零基础用户，正在配置一个开源项目「不绝望的文科生秋招」
-（github.com/onism1767-creator/wenke-radar）。它是一个每天早上把新招聘岗位
+（github.com/onism1767-creator/bujuewang-wenke-qiuzhao）。它是一个每天早上把新招聘岗位
 推送到我微信的小工具。
 
 我现在要做的事：我已经从 Server酱（sct.ftqq.com）拿到了一串 SCT 开头的 SendKey，
@@ -61,7 +61,7 @@ Settings → Secrets and variables → Actions → New repository secret，
 已经配完但**收不到推送**？把这段发给 AI：
 
 ```text
-我在用一个叫「不绝望的文科生秋招」的 GitHub 项目（github.com/onism1767-creator/wenke-radar），
+我在用一个叫「不绝望的文科生秋招」的 GitHub 项目（github.com/onism1767-creator/bujuewang-wenke-qiuzhao），
 它通过 Server酱 往我微信推送招聘岗位。我已经把 SendKey 填进仓库的
 Settings → Secrets and variables → Actions 里，名字是 PUSH_KEY，
 但微信收不到消息。

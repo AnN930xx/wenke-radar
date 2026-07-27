@@ -36,8 +36,8 @@
 ## 环境准备
 
 ```bash
-git clone https://github.com/你的用户名/wenke-radar.git
-cd wenke-radar
+git clone https://github.com/你的用户名/bujuewang-wenke-qiuzhao.git
+cd bujuewang-wenke-qiuzhao
 pip install -r requirements.txt
 
 # Windows 必须带 PYTHONUTF8=1，否则中文/emoji 会报错
