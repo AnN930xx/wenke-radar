@@ -32,9 +32,13 @@ def score_job(job):
         score += 15 + min(len(hits) - 1, 2) * 5
         reasons.append("方向:" + "/".join(hits))
 
-    # 城市：明确落在目标城市 +10（空/全国不加分也不扣——过滤层已保证不在错误城市）
+    # 城市：明确落在目标城市 +10（空/全国不加分也不扣——过滤层已保证不在错误城市）。
+    # 未配置城市偏好（TARGET_CITIES=[]，开源版默认）时，城市不是区分维度：
+    # 一律给这 10 分，否则每个岗都被系统性扣 10 分、⭐ 高匹配几乎永远够不到。
     loc = job.location or ""
-    if loc and any(c in loc for c in config.TARGET_CITIES):
+    if not config.TARGET_CITIES:
+        score += 10
+    elif loc and any(c in loc for c in config.TARGET_CITIES):
         score += 10
         reasons.append("城市匹配")
 

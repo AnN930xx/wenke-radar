@@ -92,8 +92,15 @@ class TestFilterCampus:
     def test_tech_excluded(self):
         assert not filter_jobs([job("算法工程师（推荐方向）")])
 
-    def test_wrong_city_excluded(self):
+    def test_wrong_city_excluded(self, monkeypatch):
+        # 显式声明城市偏好再断言——默认配置可能不限城市（开源版 TARGET_CITIES=[]）
+        monkeypatch.setattr(config, "TARGET_CITIES", ["上海", "北京"])
         assert not filter_jobs([job("产品经理", location="成都")])
+
+    def test_no_city_preference_keeps_all(self, monkeypatch):
+        # 不配城市 = 全国都看，任何城市都不该被过滤掉
+        monkeypatch.setattr(config, "TARGET_CITIES", [])
+        assert filter_jobs([job("产品经理", location="成都")])
 
     def test_empty_location_kept(self):
         # 没写地点/全国岗保留（宁多勿漏）
