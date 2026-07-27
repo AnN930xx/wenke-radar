@@ -59,7 +59,7 @@
     <rect x="212" y="262" width="146" height="38" rx="19" fill="#FFFFFF" stroke="#F0D5B0"/>
     <text x="285" y="286" text-anchor="middle">45 个官方源</text>
     <rect x="370" y="262" width="146" height="38" rx="19" fill="#FFFFFF" stroke="#F0D5B0"/>
-    <text x="443" y="286" text-anchor="middle">10 大求职方向</text>
+    <text x="443" y="286" text-anchor="middle">12 大求职方向</text>
     <rect x="528" y="262" width="160" height="38" rx="19" fill="#FFFFFF" stroke="#F0D5B0"/>
     <text x="608" y="286" text-anchor="middle">只报「今日新增」</text>
   </g>
@@ -85,7 +85,7 @@
   </g>
 
   <!-- 底部一句话 -->
-  <text class="zh" x="212" y="360" font-size="16" fill="#A2907E">
-    产品 · 运营 · 策展 · 增长营销 · 市场公关 · 媒体内容 · 商业分析 · 人力行政 · 项目客户
+  <text class="zh" x="212" y="360" font-size="15" fill="#A2907E">
+    产品 · 运营 · 电商 · 策展 · 增长营销 · 市场公关 · 媒体内容 · 商业分析 · 人力行政 · 项目客户 · 销售 · 设计创意
   </text>
 </svg>
