@@ -270,6 +270,26 @@ SOCIAL_EXCLUDE_SENIORITY = [
 # 注意：部分公司（如小红书）按城市过滤，填这里会精确过滤
 TARGET_CITIES = []
 
+# ==================== 可投程度评分（想调"什么样的岗排前面"就改这里）====================
+# 过滤层决定"能不能投"，评分层决定"多值得投"（0-100）：
+# 推送里同公司的岗按分数从高到低排，达到 ⭐ 阈值的标星。
+# 每项都是加/减分，起评 50。删掉某项或整个 SCORING_WEIGHTS 都安全（自动回落内置默认）。
+SCORING_WEIGHTS = {
+    "base": 50,                # 起评分
+    "direction_hit": 15,       # 命中一个关注方向
+    "direction_extra": 5,      # 每多命中一个方向（最多再算 2 个）
+    "city_match": 10,          # 落在 TARGET_CITIES（没设城市偏好时人人有份）
+    "campus": 15,              # 校招岗（应届通道）
+    "experience_unknown": 5,   # 社招但没写经验要求
+    "experience_low": 15,      # 社招且只要 <=1 年经验
+    "fresh_grad_friendly": 5,  # 标题含 管培 / 培训生 / 应届
+    "fresh_posting": 10,       # 7 天内新发布
+    "stale_posting": -10,      # 挂满 30 天（可能已招满没下架）
+}
+
+# ⭐ 高度匹配的分数线：调低 → 更多岗带星；调高 → 只有最匹配的才带星
+SCORING_STAR_THRESHOLD = 85
+
 # ==================== 各公司专属参数 ====================
 COMPANY_CONFIG = {
     "京东": {

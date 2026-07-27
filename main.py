@@ -75,7 +75,32 @@ def run_all_scrapers(session):
     return jobs, counts, results
 
 
+def repush_today():
+    """补推：不抓取，把「今天已入库的岗位」按当前配置重新过滤渲染并推送一次。
+
+    用途：改了求职方向/过滤规则/评分权重之后，想让今天的推送按新配置重来一遍；
+    或当天推送渠道全挂、修好后补发。不写日报、不动数据库，纯重发。
+    """
+    today = date.today()
+    jobs = store.load_jobs_seen_on(today.isoformat())
+    print(f"补推模式：今天入库 {len(jobs)} 个岗位，按当前配置重新过滤渲染")
+    # 今天入库的全部视为"今日新增"（推送本就只报当天新增）
+    content, n = report.generate_push_brief(jobs, {j.dedup_key for j in jobs})
+    date_label = f"{today.month}月{today.day}日"
+    title = (f"今日新发布岗位 · {date_label}" if n else f"今日无新增岗位 · {date_label}")
+    print(f"过滤后对口岗位 {n} 个，推送中...")
+    results = push.send_brief(content, title=title)
+    store.save_push_health(results)
+    if summarize_push(results).all_failed:
+        print("\n❌ 补推全部渠道失败")
+        sys.exit(1)
+    return content
+
+
 def main():
+    if "--repush" in sys.argv:
+        return repush_today()
+
     full_mode = "--full" in sys.argv
     print("=" * 50)
     print(f"秋招雷达启动 ｜ 模式: {'全量初始化' if full_mode else '日常抓取'}")

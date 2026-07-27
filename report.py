@@ -12,7 +12,7 @@ from typing import List
 from domain.models import JobItem
 from domain.canonical import dedupe_cross_source
 from filters import filter_jobs, campus_year_bucket, campus_focus_years
-from scoring import score_job, STAR_THRESHOLD
+from scoring import score_job, star_threshold
 import config
 
 
@@ -270,7 +270,7 @@ def generate_push_brief(jobs: List[JobItem], new_keys: set):
                     bucket = campus_year_bucket(j)
                     year = f"（{bucket}届）" if bucket in focus_years else "（不限届别）"
                 loc = f" · {j.location}" if j.location else ""
-                star = "⭐ " if s >= STAR_THRESHOLD else ""
+                star = "⭐ " if s >= star_threshold() else ""
                 text = f"{star}{j.title}{year}{loc}"
                 lines.append(f"- [{text}]({j.url})" if j.url else f"- {text}")
             lines.append("")

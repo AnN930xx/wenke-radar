@@ -320,6 +320,25 @@ def get_today_new_jobs() -> List[dict]:
          "publish_time", "tags", "first_seen"], row)) for row in rows]
 
 
+def load_jobs_seen_on(day: str) -> List[JobItem]:
+    """取某天首次入库的岗位，还原成 JobItem 列表（供补推 `main.py --repush` 用）。
+
+    与 get_today_new_jobs 的区别：那个返回 dict 给统计用；这里带全字段（含 recruit_type/
+    source_id/经验年限），能直接喂给 filters/scoring/report 走完整渲染链。
+    """
+    conn = _get_conn()
+    rows = conn.execute(
+        "SELECT company,job_id,title,category,location,url,publish_time,tags,"
+        "recruit_type,source_id,source_kind,canonical_job_id,experience_min_years "
+        "FROM jobs WHERE first_seen LIKE ? ORDER BY company", (f"{day}%",)).fetchall()
+    conn.close()
+    return [JobItem(
+        company=r[0], job_id=r[1], title=r[2], category=r[3], location=r[4],
+        url=r[5], publish_time=r[6], tags=r[7], recruit_type=r[8],
+        source_id=r[9], source_kind=r[10], canonical_job_id=r[11],
+        experience_min_years=r[12]) for r in rows]
+
+
 def get_all_jobs_count():
     conn = _get_conn()
     n = conn.execute("SELECT COUNT(*) FROM jobs").fetchone()[0]

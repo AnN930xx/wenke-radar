@@ -17,6 +17,10 @@ on:
         description: '强制运行：当天日报未出时手动跑会抢跑当天定时推送。确认要跑填 true。'
         type: boolean
         default: false
+      repush:
+        description: '补推：不重新抓取，把今天已入库的岗位按当前配置重新推送一次（改了方向/评分配置后用）'
+        type: boolean
+        default: false
 
 permissions:
   contents: write          # commit 日报归档需要写权限
@@ -117,8 +121,11 @@ jobs:
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
           WECOM_KEY: ${{ secrets.WECOM_KEY }}
         run: |
+          # 补推：不抓取，把今天已入库的岗位按当前配置重新推一次（改配置后用）
+          if [ "${{ inputs.repush }}" = "true" ]; then
+            python main.py --repush
           # 库不存在（首次部署 / cache 失效）就全量初始化，否则日常增量
-          if [ -f data/jobs.db ]; then
+          elif [ -f data/jobs.db ]; then
             python main.py
           else
             python main.py --full
